@@ -13,6 +13,7 @@ A little web server application to test out hosting services.
     - once all orgs are categorised, they get a thank you message
 - admin
     - can download survey results at any time
+    - no auth needed, anyone can view admin page
 
 ## non functional
 - survey should initially load in < 1s
