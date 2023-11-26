@@ -1,11 +1,12 @@
+using orgcat.db;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddOrgCatDbStorage(builder.Configuration.GetConnectionString("OrgCatDb"));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
@@ -15,11 +16,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
-
 app.MapRazorPages();
 
 app.Run();
