@@ -1,60 +1,50 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using orgcat.postgresdb;
-using orgcat.postgresdb.Entities;
+using orgcat.domain;
 
 namespace orgcat.web.Pages.Dummy
 {
     public class DeleteModel : PageModel
     {
-        private readonly orgcat.postgresdb.OrgCatDb _context;
+        public string Name { get; set; }
+        public int Id { get; set; }
 
-        public DeleteModel(orgcat.postgresdb.OrgCatDb context)
+        private readonly IOrgCatStorage _storage;
+
+        public DeleteModel(IOrgCatStorage storage)
         {
-            _context = context;
+            _storage = storage;
         }
-
-        [BindProperty]
-      public Dummy Dummy { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Dummies == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var dummy = await _context.Dummies.FirstOrDefaultAsync(m => m.Id == id);
+            var dummy = await _storage.FindDummy(id.Value);
 
             if (dummy == null)
             {
                 return NotFound();
             }
-            else 
-            {
-                Dummy = dummy;
-            }
+            
+            Name = dummy.Name;
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.Dummies == null)
+            if (id == null)
             {
                 return NotFound();
             }
-            var dummy = await _context.Dummies.FindAsync(id);
+            var dummy = await _storage.FindDummy(id.Value);
 
             if (dummy != null)
             {
-                Dummy = dummy;
-                _context.Dummies.Remove(Dummy);
-                await _context.SaveChangesAsync();
+                _storage.DeleteDummy(id.Value);
             }
 
             return RedirectToPage("./Index");

@@ -1,45 +1,36 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using orgcat.postgresdb;
-using orgcat.postgresdb.Entities;
+using orgcat.domain;
 
 namespace orgcat.web.Pages.Dummy
 {
     public class CreateModel : PageModel
     {
-        private readonly orgcat.postgresdb.OrgCatDb _context;
+        public string Name { get; set; } = string.Empty;
+        
+        private readonly IOrgCatStorage _storage;
 
-        public CreateModel(orgcat.postgresdb.OrgCatDb context)
+        public CreateModel(IOrgCatStorage storage)
         {
-            _context = context;
+            _storage = storage;
         }
-
+        
         public IActionResult OnGet()
         {
             return Page();
         }
 
-        [BindProperty]
-        public Dummy Dummy { get; set; } = default!;
-        
-
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        public Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Dummies == null || Dummy == null)
+            if (!ModelState.IsValid)
             {
-                return Page();
+                return Task.FromResult<IActionResult>(Page());
             }
 
-            _context.Dummies.Add(Dummy);
-            await _context.SaveChangesAsync();
+            _storage.Add(new domain.NewDummy(Name));
 
-            return RedirectToPage("./Index");
+            return Task.FromResult<IActionResult>(RedirectToPage("./Index"));
         }
     }
 }

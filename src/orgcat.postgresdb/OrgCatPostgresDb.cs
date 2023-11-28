@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using orgcat.domain;
 
 namespace orgcat.postgresdb;
 
@@ -10,6 +11,7 @@ public static class StorageConfiguration
         string connectionString)
     {
         services.AddDbContext<OrgCatDb>(options => options.UseNpgsql(connectionString));
+        services.AddTransient<IOrgCatStorage, OrgCatPostgresDbStorage>();
     }
 }
 

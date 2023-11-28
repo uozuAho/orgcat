@@ -1,32 +1,22 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using orgcat.postgresdb;
-using orgcat.postgresdb.Entities;
+using orgcat.domain;
 
 namespace orgcat.web.Pages.Dummy
 {
     public class IndexModel : PageModel
     {
-        private readonly orgcat.postgresdb.OrgCatDb _context;
+        private readonly IOrgCatStorage _storage;
 
-        public IndexModel(orgcat.postgresdb.OrgCatDb context)
+        public IndexModel(IOrgCatStorage storage)
         {
-            _context = context;
+            _storage = storage;
         }
 
-        public IList<Dummy> Dummy { get;set; } = default!;
+        public IList<ExistingDummy> Dummies { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Dummies != null)
-            {
-                Dummy = await _context.Dummies.ToListAsync();
-            }
+            Dummies = await _storage.LoadAllDummies();
         }
     }
 }
