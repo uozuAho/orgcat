@@ -12,7 +12,7 @@ namespace orgcat.postgresdb.Migrations
 {
     [DbContext(typeof(OrgCatDb))]
     [Migration("20231128024850_init")]
-    partial class init
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

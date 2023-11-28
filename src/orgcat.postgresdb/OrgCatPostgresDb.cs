@@ -5,7 +5,7 @@ namespace orgcat.postgresdb;
 
 public static class StorageConfiguration
 {
-    public static void AddOrgCatDbStorage(
+    public static void AddOrgCatPostgresDb(
         this IServiceCollection services,
         string connectionString)
     {

@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\orgcat.postgresdb\orgcat.postgresdb.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,14 @@
+using orgcat.postgresdb;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
+var connString = builder.Configuration.GetConnectionString("OrgCatDb");
+if (string.IsNullOrEmpty(connString))
+{
+    throw new Exception("Connection string is empty");
+}
+builder.Services.AddOrgCatPostgresDb(connString);
 
 var app = builder.Build();
 
