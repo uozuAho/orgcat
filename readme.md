@@ -2,6 +2,12 @@
 
 A little web server application to test out hosting services.
 
+# Quick start
+To run locally in a fresh dev environment:
+
+```sh
+```
+
 # The app
 ## functional requirements
 - users
