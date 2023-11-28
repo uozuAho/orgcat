@@ -5,6 +5,7 @@ A little web server application to test out hosting services.
 # Quick start
 To run locally in a fresh dev environment:
 
+**todo**:
 ```sh
 ```
 
@@ -27,3 +28,19 @@ To run locally in a fresh dev environment:
 - contains a concurrency bug so that concurrent landing on a new
   survey id causes that id to become unusable
 
+
+# Database
+## Migrations
+If you've changed the data model in orgcat.postgresdb, create a migration:
+
+```sh
+dotnet ef migrations add <name of migration>
+dotnet ef database update   # applies migrations to your local database
+```
+
+
+# To do
+- remove old db project
+- POC: show db data on a page
+- implement survey stuff
+- inline todos
