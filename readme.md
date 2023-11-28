@@ -40,7 +40,6 @@ dotnet ef database update   # applies migrations to your local database
 
 
 # To do
-- remove old db project
 - POC: show db data on a page
 - implement survey stuff
 - inline todos

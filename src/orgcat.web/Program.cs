@@ -1,9 +1,6 @@
-using orgcat.db;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
-builder.Services.AddOrgCatDbStorage(builder.Configuration.GetConnectionString("OrgCatDb"));
 
 var app = builder.Build();
 
