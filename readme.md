@@ -27,6 +27,8 @@ To run locally in a fresh dev environment:
 - survey pages should transition in < 1s
 - contains a concurrency bug so that concurrent landing on a new
   survey id causes that id to become unusable
+- separate staging and prod environments
+- CD: deploy on push main
 
 
 # Database
