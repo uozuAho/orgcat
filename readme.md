@@ -31,9 +31,10 @@ To run locally in a fresh dev environment:
 
 # Database
 ## Migrations
-If you've changed the data model in orgcat.postgresdb, create a migration:
+If you've changed the data model in `orgcat.postgresdb`, create a migration:
 
 ```sh
+cd src/orgcat.postgresdb
 dotnet ef migrations add <name of migration>
 dotnet ef database update   # applies migrations to your local database
 ```
