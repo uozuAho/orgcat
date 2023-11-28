@@ -5,8 +5,12 @@ A little web server application to test out hosting services.
 # Quick start
 To run locally in a fresh dev environment:
 
-**todo**:
+- install .NET 7
+- install docker
+
 ```sh
+./rundb.sh
+dotnet run --project orgcat.web
 ```
 
 # The app
@@ -14,6 +18,7 @@ To run locally in a fresh dev environment:
 - users
     - land on page ~/start/<some random ascii, 7 chars>
     - this starts a survey using the random ascii as the survey id
+        - this is an intentional bug (create data on GET)
     - user categorises orgs
     - they can only do the survey once
     - they can continue the survey at any time
@@ -43,7 +48,6 @@ dotnet ef database update   # applies migrations to your local database
 
 
 # To do
-- fix build warnings
 - implement survey stuff
 - inline todos
 

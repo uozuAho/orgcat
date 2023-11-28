@@ -8,7 +8,7 @@ namespace orgcat.web.Pages.Dummy
     public class EditModel : PageModel
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         private readonly IOrgCatStorage _storage;
 
@@ -35,16 +35,16 @@ namespace orgcat.web.Pages.Dummy
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
-                return Page();
+                return Task.FromResult<IActionResult>(Page());
             }
             
             // todo: update dummy
 
-            return RedirectToPage("./Index");
+            return Task.FromResult<IActionResult>(RedirectToPage("./Index"));
         }
 
         private bool DummyExists(int id)

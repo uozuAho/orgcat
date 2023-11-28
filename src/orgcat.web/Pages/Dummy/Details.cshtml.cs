@@ -7,7 +7,7 @@ namespace orgcat.web.Pages.Dummy
     public class DetailsModel : PageModel
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         private readonly IOrgCatStorage _storage;
 

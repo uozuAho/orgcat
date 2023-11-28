@@ -6,7 +6,7 @@ namespace orgcat.web.Pages.Dummy
 {
     public class DeleteModel : PageModel
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public int Id { get; set; }
 
         private readonly IOrgCatStorage _storage;
