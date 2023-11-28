@@ -7,7 +7,7 @@ internal class Dummy
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
     
-    public static Dummy FromDomain(domain.NewDummy newDummy)
+    public static Dummy FromDomain(NewDummy newDummy)
     {
         return new Dummy
         {

@@ -1,11 +1,15 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using orgcat.domain;
 
 namespace orgcat.web.Pages.Dummy
 {
+    [BindProperties]
     public class CreateModel : PageModel
     {
+        [Required]
+        [StringLength(maximumLength: 100, MinimumLength = 1)]
         public string Name { get; set; } = string.Empty;
         
         private readonly IOrgCatStorage _storage;
@@ -28,7 +32,7 @@ namespace orgcat.web.Pages.Dummy
                 return Task.FromResult<IActionResult>(Page());
             }
 
-            _storage.Add(new domain.NewDummy(Name));
+            _storage.Add(new NewDummy(Name));
 
             return Task.FromResult<IActionResult>(RedirectToPage("./Index"));
         }

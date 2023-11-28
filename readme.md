@@ -43,7 +43,6 @@ dotnet ef database update   # applies migrations to your local database
 
 
 # To do
-- POC: show db data on a page
 - fix build warnings
 - implement survey stuff
 - inline todos
