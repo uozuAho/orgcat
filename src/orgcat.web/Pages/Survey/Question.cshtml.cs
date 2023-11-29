@@ -20,4 +20,10 @@ public class Question : PageModel
     {
         QuestionText = "What is your favorite color?";   
     }
+    
+    public Task OnPostAsync()
+    {
+        _storage.Add(new SurveyQuestionResponse(SurveyId, Answer));
+        return Task.CompletedTask;
+    }
 }

@@ -8,4 +8,5 @@ public interface IOrgCatStorage
     Task<IList<ExistingDummy>> LoadAllDummies();
     Task<bool> SurveyExists(string id);
     Task CreateNewSurveyResponse(string id);
+    Task Add(SurveyQuestionResponse response);
 }

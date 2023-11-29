@@ -23,4 +23,5 @@ internal class OrgCatDb : DbContext
     
     public DbSet<Entities.Dummy> Dummies { get; set; }
     public DbSet<Entities.SurveyResponse> SurveyResponses { get; set; }
+    public DbSet<Entities.SurveyQuestionResponse> SurveyQuestionResponses { get; set; }
 }

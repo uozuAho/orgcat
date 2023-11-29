@@ -14,6 +14,10 @@ cd src/orgcat.postgresdb
 dotnet ef database update
 cd ..
 dotnet run --project orgcat.web
+
+# see what's in the db
+docker ps   # get container id
+docker exec -it CONTAINER_ID psql -U postgres -d orgcat
 ```
 
 # The app
@@ -52,6 +56,12 @@ dotnet ef database update   # applies migrations to your local database
 
 # To do
 - survey
+    - question:
+        - save response on click next
+            - fix db schema:
+                - survey id must exist, foreign key
+                - response cannot be empty
+        - goto next question on click next
     - welcome: say welcome back if survey is already started
 - inline todos
 - remove dummies
