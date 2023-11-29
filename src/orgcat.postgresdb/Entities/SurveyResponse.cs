@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices.ComTypes;
-using orgcat.domain;
+﻿using orgcat.domain;
 
 namespace orgcat.postgresdb.Entities;
 

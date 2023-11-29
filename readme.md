@@ -55,6 +55,7 @@ dotnet ef database update   # applies migrations to your local database
 
 
 # To do
+- seed survey data
 - survey
     - question:
         - move question logic to domain service

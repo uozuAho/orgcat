@@ -45,11 +45,12 @@ namespace orgcat.postgresdb
             return await _context.SurveyResponses.AnyAsync(s => s.Id == id);
         }
 
-        public async Task CreateNewSurveyResponse(string id)
+        public async Task CreateNewSurveyResponse(string id, int surveyId)
         {
             _context.SurveyResponses.Add(new Entities.SurveyResponse
             {
-                Id = id
+                Id = id,
+                SurveyId = surveyId
             });
         
             await _context.SaveChangesAsync();

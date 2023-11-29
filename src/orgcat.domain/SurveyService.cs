@@ -3,12 +3,13 @@
 public interface ISurveyService
 {
     Task<bool> IsSurveyStarted(string id);
-    Task StartSurvey(string id);
+    Task StartSurvey(string responseId, int surveyId);
     Task<int> CreateSurvey(string justAFewQuestions);
     Task AddQuestion(int surveyId, string questionText);
     Task<List<ExistingSurvey>> ListAvailableSurveys();
     Task StartNewSurveyResponse(int surveyId, string responseId);
     Task<ExistingSurveyQuestion?> LoadNextQuestion(string responseId);
+    Task StartLatestSurvey(string responseId);
 }
 
 public class SurveyService : ISurveyService
@@ -25,9 +26,9 @@ public class SurveyService : ISurveyService
         return await _storage.SurveyExists(id);
     }
 
-    public Task StartSurvey(string id)
+    public Task StartSurvey(string responseId, int surveyId)
     {
-        return _storage.CreateNewSurveyResponse(id);
+        return _storage.CreateNewSurveyResponse(responseId, surveyId);
     }
 
     public async Task<int> CreateSurvey(string surveyName)
@@ -59,5 +60,15 @@ public class SurveyService : ISurveyService
         var nextQuestion = survey.Questions
             .FirstOrDefault(q => response.Responses.All(r => r.QuestionId != q.Id));
         return nextQuestion;
+    }
+
+    public async Task StartLatestSurvey(string responseId)
+    {
+        var latestSurvey = (await _storage
+            .ListSurveys())
+            .OrderByDescending(s => s.Id)
+            .First();
+
+        await StartSurvey(responseId, latestSurvey.Id);
     }
 }
