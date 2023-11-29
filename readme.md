@@ -51,16 +51,17 @@ dotnet ef database update   # applies migrations to your local database
 
 
 # To do
+- try to do a survey. fix bugs
 - survey
     - question:
-        - move question logic to domain service
-        - WIP: load question text from db
+        - WIP: move question logic to domain service
         - goto next question on click next
     - welcome: say welcome back if survey is already started
 - inline todos
 - remove dummies
 
 # Maybe/later
+- replace survey controller with start page
 - fuzz test via http?
 - get rid of new/existing distinction in domain types
 - automate arch checks

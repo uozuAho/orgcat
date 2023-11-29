@@ -11,25 +11,23 @@ public class SurveyController : Controller
     {
         _surveyService = svc;
     }
-    
+
     public async Task<IActionResult> Start(string id)
     {
         var isStarted = await _surveyService.IsSurveyStarted(id);
-        
+
         if (!isStarted)
         {
             await _surveyService.StartLatestSurvey(id);
-            // todo: this should be response id
-            return RedirectToPage("/Survey/Welcome", new {surveyId=id});
+            return RedirectToPage("/Survey/Welcome", new {responseId=id});
         }
         else
         {
             // todo:
             // var question = _surveyService.GetNextQuestion(id);
             // Show(question);
-            
-            // todo: this should be response id
-            return RedirectToPage("/Survey/Welcome", new {surveyId=id});
+
+            return RedirectToPage("/Survey/Welcome", new {responseId=id});
         }
     }
 }
