@@ -7,4 +7,5 @@ public interface IOrgCatStorage
     void DeleteDummy(int id);
     Task<IList<ExistingDummy>> LoadAllDummies();
     Task<bool> SurveyExists(string id);
+    Task CreateNewSurveyResponse(string id);
 }

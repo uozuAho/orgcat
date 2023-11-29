@@ -19,8 +19,7 @@ public class SurveyController : Controller
         
         if (!isStarted)
         {
-            // todo:
-            // _surveyService.StartSurvey(id);
+            await _surveyService.StartSurvey(id);
             return RedirectToPage("/Survey/Welcome", new {surveyId=id});
         }
         else

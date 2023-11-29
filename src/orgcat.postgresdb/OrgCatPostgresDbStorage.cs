@@ -44,4 +44,14 @@ internal class OrgCatPostgresDbStorage : IOrgCatStorage
     {
         return await _context.SurveyResponses.AnyAsync(s => s.Id == id);
     }
+
+    public async Task CreateNewSurveyResponse(string id)
+    {
+        _context.SurveyResponses.Add(new Entities.SurveyResponse
+        {
+            Id = id
+        });
+        
+        await _context.SaveChangesAsync();
+    }
 }

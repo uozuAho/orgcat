@@ -53,6 +53,7 @@ dotnet ef database update   # applies migrations to your local database
 # To do
 - implement survey stuff
 - inline todos
+- remove dummies
 
 # Maybe/later
 - fuzz test via http?
