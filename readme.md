@@ -10,6 +10,9 @@ To run locally in a fresh dev environment:
 
 ```sh
 ./rundb.sh
+cd src/orgcat.postgresdb
+dotnet ef database update
+cd ..
 dotnet run --project orgcat.web
 ```
 
@@ -19,13 +22,13 @@ dotnet run --project orgcat.web
     - land on page ~/start/<some random ascii, 7 chars>
     - this starts a survey using the random ascii as the survey id
         - this is an intentional bug (create data on GET)
-    - user categorises orgs
-    - they can only do the survey once
-    - they can continue the survey at any time
-    - once all orgs are categorised, they get a thank you message
+    - user answers survey questions
+    - LATER: they can only do the survey once
+    - LATER: they can continue the survey at any time
+    - LATER: once all orgs are categorised, they get a thank you message
 - admin
-    - can download survey results at any time
-    - no auth needed, anyone can view admin page
+    - LATER: can download survey results at any time
+        - no auth needed, anyone can view admin page
 
 ## non functional
 - survey should initially load in < 1s
@@ -52,5 +55,6 @@ dotnet ef database update   # applies migrations to your local database
 - inline todos
 
 # Maybe/later
+- fuzz test via http?
 - automate arch checks
     - web shouldn't reference db directly, apart from IoC setup

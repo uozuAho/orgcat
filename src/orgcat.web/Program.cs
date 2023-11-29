@@ -1,3 +1,4 @@
+using orgcat.domain;
 using orgcat.postgresdb;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ if (string.IsNullOrEmpty(connString))
     throw new Exception("Connection string is empty");
 }
 builder.Services.AddOrgCatPostgresDb(connString);
+builder.Services.AddTransient<ISurveyService, SurveyService>();
 
 var app = builder.Build();
 
@@ -24,5 +26,8 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
 app.MapRazorPages();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

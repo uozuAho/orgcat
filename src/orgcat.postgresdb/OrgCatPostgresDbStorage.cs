@@ -39,4 +39,9 @@ internal class OrgCatPostgresDbStorage : IOrgCatStorage
         var dummies = await _context.Dummies.Select(d => d.ToDomain()).ToListAsync();
         return dummies;
     }
+
+    public async Task<bool> SurveyExists(string id)
+    {
+        return await _context.SurveyResponses.AnyAsync(s => s.Id == id);
+    }
 }
