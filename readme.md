@@ -52,7 +52,7 @@ dotnet ef database update   # applies migrations to your local database
 
 # To do
 - survey
-    - welcome: go to next question on click go
+    - welcome: say welcome back if survey is already started
 - inline todos
 - remove dummies
 
