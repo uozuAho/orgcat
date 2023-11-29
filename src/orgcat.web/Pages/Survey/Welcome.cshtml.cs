@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace orgcat.web.Pages.Survey;
 
+[BindProperties]
 public class Welcome : PageModel
 {
     public string SurveyId { get; set; } = string.Empty;

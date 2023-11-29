@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using orgcat.domain;
 
 namespace orgcat.web.Pages.Survey;
 
+[BindProperties]
 public class Question : PageModel
 {
     private readonly IOrgCatStorage _storage;
@@ -21,9 +23,9 @@ public class Question : PageModel
         QuestionText = "What is your favorite color?";   
     }
     
-    public Task OnPostAsync()
+    public async Task<IActionResult> OnPostAsync()
     {
-        _storage.Add(new SurveyQuestionResponse(SurveyId, Answer));
-        return Task.CompletedTask;
+        await _storage.Add(new SurveyQuestionResponse(SurveyId, Answer));
+        return RedirectToPage("./Question", new {surveyId=SurveyId});
     }
 }
