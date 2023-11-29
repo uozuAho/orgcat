@@ -9,4 +9,9 @@ public class SurveyQuestionResponse
     
     public SurveyResponse SurveyResponse { get; set; } = null!;
     public SurveyQuestion Question { get; set; } = null!;
+
+    public domain.SurveyQuestionResponse ToDomain()
+    {
+        return new domain.SurveyQuestionResponse(SurveyResponseId, QuestionId, ResponseText);
+    }
 }

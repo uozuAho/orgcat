@@ -1,4 +1,7 @@
-﻿namespace orgcat.postgresdb.Entities;
+﻿using System.Runtime.InteropServices.ComTypes;
+using orgcat.domain;
+
+namespace orgcat.postgresdb.Entities;
 
 public class SurveyResponse
 {
@@ -7,4 +10,11 @@ public class SurveyResponse
     
     public Survey Survey { get; set; } = null!;
     public ICollection<SurveyQuestionResponse> SurveyQuestionResponses { get; set; } = new List<SurveyQuestionResponse>();
+
+    public ExistingSurveyResponse ToDomain()
+    {
+        return new ExistingSurveyResponse(
+            SurveyId,
+            SurveyQuestionResponses.Select(r => r.ToDomain()).ToList());
+    }
 }

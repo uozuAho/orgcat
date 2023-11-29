@@ -4,6 +4,10 @@ namespace orgcat.domain.test;
 
 internal class FakeOrgCatStorage : IOrgCatStorage
 {
+    private readonly List<ExistingSurvey> _surveys = new();
+    private readonly List<ExistingSurveyQuestion> _questions = new();
+    private readonly List<ExistingSurveyResponse> _surveyResponses = new();
+
     public void Add(NewDummy newDummy)
     {
         throw new NotImplementedException();
@@ -39,7 +43,7 @@ internal class FakeOrgCatStorage : IOrgCatStorage
         throw new NotImplementedException();
     }
 
-    public Task<SurveyQuestion> LoadQuestion(int surveyId, int questionId)
+    public Task<ExistingSurveyQuestion> LoadQuestion(int surveyId, int questionId)
     {
         throw new NotImplementedException();
     }
@@ -51,30 +55,43 @@ internal class FakeOrgCatStorage : IOrgCatStorage
 
     public Task Add(NewSurvey survey)
     {
+        _surveys.Add(new ExistingSurvey(_surveys.Count + 1, survey.Name, new List<ExistingSurveyQuestion>()));
+        return Task.CompletedTask;
+    }
+
+    public Task Add(NewSurveyQuestion question)
+    {
         throw new NotImplementedException();
     }
 
-    public Task Add(SurveyQuestion question)
+    public Task<ExistingSurvey> LoadSurvey(int id)
     {
         throw new NotImplementedException();
+    }
+
+    public Task Add(ExistingSurveyQuestion question)
+    {
+        _questions.Add(question);
+        return Task.CompletedTask;
     }
 
     public Task<ExistingSurvey> LoadSurveyByName(string surveyName)
     {
-        throw new NotImplementedException();
+        return Task.FromResult(_surveys.Single(s => s.Name == surveyName));
     }
 
     public Task<List<ExistingSurvey>> ListSurveys()
     {
-        throw new NotImplementedException();
+        return Task.FromResult(_surveys);
     }
 
     public Task Add(NewSurveyResponse response)
     {
-        throw new NotImplementedException();
+        _surveyResponses.Add(new ExistingSurveyResponse(response.SurveyId, new List<SurveyQuestionResponse>()));
+        return Task.CompletedTask;
     }
 
-    public Task<SurveyQuestion> LoadNextQuestion(string surveyResponseId)
+    public Task<ExistingSurveyResponse> LoadSurveyResponse(string responseId)
     {
         throw new NotImplementedException();
     }

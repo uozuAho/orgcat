@@ -67,7 +67,7 @@ namespace orgcat.postgresdb
             await _context.SaveChangesAsync();
         }
 
-        public async Task<SurveyQuestion> LoadQuestion(int surveyId, int questionId)
+        public async Task<ExistingSurveyQuestion> LoadQuestion(int surveyId, int questionId)
         {
             var question = await _context.SurveyQuestions
                 .SingleAsync(r => r.SurveyId == surveyId && r.Id == questionId);
@@ -84,7 +84,7 @@ namespace orgcat.postgresdb
             await _context.SaveChangesAsync();
         }
 
-        public async Task Add(SurveyQuestion question)
+        public async Task Add(NewSurveyQuestion question)
         {
             await _context.SurveyQuestions.AddAsync(new Entities.SurveyQuestion()
             {
@@ -94,6 +94,12 @@ namespace orgcat.postgresdb
             await _context.SaveChangesAsync();
         }
 
+        public async Task<ExistingSurvey> LoadSurvey(int id)
+        {
+            var survey = await _context.Surveys.SingleAsync(s => s.Id == id);
+            return survey.ToDomain();
+        }
+        
         public async Task<ExistingSurvey> LoadSurveyByName(string surveyName)
         {
             var survey = await _context.Surveys.SingleAsync(s => s.Name == surveyName);
@@ -114,19 +120,14 @@ namespace orgcat.postgresdb
             });
             await _context.SaveChangesAsync();
         }
-
-        public async Task<SurveyQuestion?> LoadNextQuestion(string surveyResponseId)
+        
+        public async Task<ExistingSurveyResponse> LoadSurveyResponse(string responseId)
         {
             var response = await _context.SurveyResponses
                 .Include(r => r.SurveyQuestionResponses)
-                .SingleAsync(r => r.Id == surveyResponseId);
+                .SingleAsync(r => r.Id == responseId);
             
-            var next = await _context.SurveyQuestions
-                .Where(q => q.SurveyId == response.SurveyId)
-                .Where(q => response.SurveyQuestionResponses.All(r => r.QuestionId != q.Id))
-                .FirstOrDefaultAsync();
-
-            return next?.ToDomain();
+            return response.ToDomain();
         }
     }
 }

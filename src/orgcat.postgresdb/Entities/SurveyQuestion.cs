@@ -9,8 +9,8 @@ public class SurveyQuestion
     
     public Survey Survey { get; set; } = null!;
     
-    public domain.SurveyQuestion ToDomain()
+    public domain.ExistingSurveyQuestion ToDomain()
     {
-        return new domain.SurveyQuestion(SurveyId, QuestionText);
+        return new domain.ExistingSurveyQuestion(Id, SurveyId, QuestionText);
     }
 }

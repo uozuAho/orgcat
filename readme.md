@@ -66,6 +66,7 @@ dotnet ef database update   # applies migrations to your local database
 
 # Maybe/later
 - fuzz test via http?
+- get rid of new/existing distinction in domain types
 - automate arch checks
     - web shouldn't reference db directly, apart from IoC setup
     - db entities should be internal
