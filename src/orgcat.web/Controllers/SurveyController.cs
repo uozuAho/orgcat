@@ -18,7 +18,8 @@ public class SurveyController : Controller
         
         if (!isStarted)
         {
-            await _surveyService.StartSurvey(id);
+            await _surveyService.StartLatestSurvey(id);
+            // todo: this should be response id
             return RedirectToPage("/Survey/Welcome", new {surveyId=id});
         }
         else
@@ -26,6 +27,8 @@ public class SurveyController : Controller
             // todo:
             // var question = _surveyService.GetNextQuestion(id);
             // Show(question);
+            
+            // todo: this should be response id
             return RedirectToPage("/Survey/Welcome", new {surveyId=id});
         }
     }

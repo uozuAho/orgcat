@@ -9,15 +9,11 @@ To run locally in a fresh dev environment:
 - install docker
 
 ```sh
-./rundb.sh
-cd src/orgcat.postgresdb
-dotnet ef database update
-cd ..
-dotnet run --project orgcat.web
+./db_reset.sh
+dotnet run --project src/orgcat.web
 
 # see what's in the db
-docker ps   # get container id
-docker exec -it CONTAINER_ID psql -U postgres -d orgcat
+docker exec -it orgcat_pg psql -U postgres -d orgcat
 ```
 
 # The app

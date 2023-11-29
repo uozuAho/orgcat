@@ -11,8 +11,8 @@ using orgcat.postgresdb;
 namespace orgcat.postgresdb.Migrations
 {
     [DbContext(typeof(OrgCatDb))]
-    [Migration("20231129061313_Something")]
-    partial class Something
+    [Migration("20231129081904_Initialise")]
+    partial class Initialise
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
