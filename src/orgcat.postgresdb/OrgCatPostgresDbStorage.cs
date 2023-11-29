@@ -65,5 +65,13 @@ namespace orgcat.postgresdb
         
             await _context.SaveChangesAsync();
         }
+
+        public Task<string> LoadQuestionText(string surveyId, int questionId)
+        {
+            return _context.SurveyQuestions
+                .Where(r => r.SurveyId == surveyId && r.Id == questionId)
+                .Select(r => r.QuestionText)
+                .FirstAsync();
+        }
     }
 }

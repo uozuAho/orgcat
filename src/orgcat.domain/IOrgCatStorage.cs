@@ -9,4 +9,5 @@ public interface IOrgCatStorage
     Task<bool> SurveyExists(string id);
     Task CreateNewSurveyResponse(string id);
     Task Add(SurveyQuestionResponse response);
+    Task<string> LoadQuestionText(string surveyId, int questionId);
 }

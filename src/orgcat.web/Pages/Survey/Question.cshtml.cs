@@ -11,6 +11,8 @@ public class Question : PageModel
     private readonly IOrgCatStorage _storage;
     
     public string SurveyId { get; set; } = string.Empty;
+    public int QuestionId { get; set; }
+    
     public string QuestionText { get; set; } = string.Empty;
     
     [Required]
@@ -22,11 +24,12 @@ public class Question : PageModel
         _storage = storage;
     }
     
-    public void OnGet()
+    public async Task<IActionResult> OnGet()
     {
-        QuestionText = "What is your favorite color?";   
+        QuestionText = await _storage.LoadQuestionText(SurveyId, QuestionId);
+        return Page();
     }
-    
+
     public async Task<IActionResult> OnPostAsync()
     {
         if (!ModelState.IsValid)

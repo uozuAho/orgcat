@@ -57,7 +57,8 @@ dotnet ef database update   # applies migrations to your local database
 # To do
 - survey
     - question:
-        - load question text from db
+        - move question logic to domain service
+        - WIP: load question text from db
         - goto next question on click next
     - welcome: say welcome back if survey is already started
 - inline todos
