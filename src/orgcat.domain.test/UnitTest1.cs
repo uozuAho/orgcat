@@ -7,6 +7,7 @@ internal class FakeOrgCatStorage : IOrgCatStorage
     private readonly List<ExistingSurvey> _surveys = new();
     private readonly List<ExistingSurveyQuestion> _questions = new();
     private readonly List<ExistingSurveyResponse> _surveyResponses = new();
+    private readonly List<SurveyQuestionResponse> _questionResponses = new();
 
     public void Add(NewDummy newDummy)
     {
@@ -61,12 +62,17 @@ internal class FakeOrgCatStorage : IOrgCatStorage
 
     public Task Add(NewSurveyQuestion question)
     {
-        throw new NotImplementedException();
+        _questions.Add(new ExistingSurveyQuestion(
+            _questions.Count + 1, question.SurveyId, question.QuestionText));
+        return Task.CompletedTask;
     }
 
     public Task<ExistingSurvey> LoadSurvey(int id)
     {
-        throw new NotImplementedException();
+        var existingSurvey = _surveys.Single(s => s.Id == id);
+        var questions = _questions.Where(q => q.SurveyId == id).ToList();
+        
+        return Task.FromResult(existingSurvey with { Questions = questions });
     }
 
     public Task Add(ExistingSurveyQuestion question)
@@ -87,13 +93,23 @@ internal class FakeOrgCatStorage : IOrgCatStorage
 
     public Task Add(NewSurveyResponse response)
     {
-        _surveyResponses.Add(new ExistingSurveyResponse(response.SurveyId, new List<SurveyQuestionResponse>()));
+        _surveyResponses.Add(new ExistingSurveyResponse(
+            response.SurveyId,
+            response.ResponseId,
+            new List<SurveyQuestionResponse>()));
+        
         return Task.CompletedTask;
     }
 
     public Task<ExistingSurveyResponse> LoadSurveyResponse(string responseId)
     {
-        throw new NotImplementedException();
+        var response = _surveyResponses.Single(r => r.ResponseId == responseId);
+        
+        var questionResponses = _questionResponses
+            .Where(r => r.SurveyResponseId == responseId)
+            .ToList();
+        
+        return Task.FromResult(response with { Responses = questionResponses });
     }
 }
 

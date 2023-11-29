@@ -15,6 +15,7 @@ public class SurveyResponse
     {
         return new ExistingSurveyResponse(
             SurveyId,
+            Id,
             SurveyQuestionResponses.Select(r => r.ToDomain()).ToList());
     }
 }

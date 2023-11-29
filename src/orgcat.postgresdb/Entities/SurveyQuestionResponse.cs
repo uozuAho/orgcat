@@ -3,7 +3,7 @@
 public class SurveyQuestionResponse
 {
     public int Id { get; set; }
-    public int SurveyResponseId { get; set; }
+    public string SurveyResponseId { get; set; } = string.Empty;
     public int QuestionId { get; set; }
     public string ResponseText { get; set; } = string.Empty;
     

@@ -11,7 +11,7 @@ public class Question : PageModel
     private readonly IOrgCatStorage _storage;
     
     public int SurveyId { get; set; }
-    public int SurveyResponseId { get; set; }
+    public string SurveyResponseId { get; set; } = string.Empty;
     public int QuestionId { get; set; }
     
     public string QuestionText { get; set; } = string.Empty;
