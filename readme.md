@@ -51,7 +51,8 @@ dotnet ef database update   # applies migrations to your local database
 
 
 # To do
-- implement survey stuff
+- survey
+    - welcome: go to next question on click go
 - inline todos
 - remove dummies
 

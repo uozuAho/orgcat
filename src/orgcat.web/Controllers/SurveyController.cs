@@ -12,7 +12,6 @@ public class SurveyController : Controller
         _surveyService = svc;
     }
     
-    // GET
     public async Task<IActionResult> Start(string id)
     {
         var isStarted = await _surveyService.IsSurveyStarted(id);

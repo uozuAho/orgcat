@@ -8,6 +8,5 @@ public class Welcome : PageModel
     
     public void OnGet()
     {
-        
     }
 }
