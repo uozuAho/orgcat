@@ -59,19 +59,45 @@ namespace orgcat.postgresdb
         {
             _context.SurveyQuestionResponses.Add(new Entities.SurveyQuestionResponse
             {
-                SurveyId = response.SurveyId,
+                SurveyResponseId = response.SurveyResponseId,
+                QuestionId = response.QuestionId,
                 ResponseText = response.ResponseText
             });
         
             await _context.SaveChangesAsync();
         }
 
-        public Task<string> LoadQuestionText(string surveyId, int questionId)
+        public async Task<SurveyQuestion> LoadQuestion(int surveyId, int questionId)
         {
-            return _context.SurveyQuestions
-                .Where(r => r.SurveyId == surveyId && r.Id == questionId)
-                .Select(r => r.QuestionText)
-                .FirstAsync();
+            var question = await _context.SurveyQuestions
+                .SingleAsync(r => r.SurveyId == surveyId && r.Id == questionId);
+            
+            return question.ToDomain();
+        }
+
+        public async Task Add(NewSurvey survey)
+        {
+            await _context.Surveys.AddAsync(new Entities.Survey
+            {
+                Name = survey.Name
+            });
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Add(SurveyQuestion question)
+        {
+            await _context.SurveyQuestions.AddAsync(new Entities.SurveyQuestion()
+            {
+                SurveyId = question.SurveyId,
+                QuestionText = question.QuestionText,
+            });
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<ExistingSurvey> LoadSurveyByName(string surveyName)
+        {
+            var survey = await _context.Surveys.SingleAsync(s => s.Name == surveyName);
+            return survey.ToDomain();
         }
     }
 }

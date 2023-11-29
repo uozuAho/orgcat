@@ -10,7 +10,8 @@ public class Question : PageModel
 {
     private readonly IOrgCatStorage _storage;
     
-    public string SurveyId { get; set; } = string.Empty;
+    public int SurveyId { get; set; }
+    public int SurveyResponseId { get; set; }
     public int QuestionId { get; set; }
     
     public string QuestionText { get; set; } = string.Empty;
@@ -26,7 +27,8 @@ public class Question : PageModel
     
     public async Task<IActionResult> OnGet()
     {
-        QuestionText = await _storage.LoadQuestionText(SurveyId, QuestionId);
+        var question = await _storage.LoadQuestion(SurveyId, QuestionId);
+        QuestionText = question.QuestionText;
         return Page();
     }
 
@@ -37,7 +39,7 @@ public class Question : PageModel
             return Page();
         }
         
-        await _storage.Add(new SurveyQuestionResponse(SurveyId, Answer));
+        await _storage.Add(new SurveyQuestionResponse(SurveyResponseId, QuestionId, Answer));
         return RedirectToPage("./Question", new {surveyId=SurveyId});
     }
 }

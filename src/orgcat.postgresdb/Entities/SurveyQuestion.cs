@@ -3,7 +3,14 @@
 public class SurveyQuestion
 {
     public int Id { get; set; }
-    public string SurveyId { get; set; } = string.Empty;
+    public int SurveyId { get; set; }
     
     public string QuestionText { get; set; } = string.Empty;
+    
+    public Survey Survey { get; set; } = null!;
+    
+    public domain.SurveyQuestion ToDomain()
+    {
+        return new domain.SurveyQuestion(SurveyId, QuestionText);
+    }
 }

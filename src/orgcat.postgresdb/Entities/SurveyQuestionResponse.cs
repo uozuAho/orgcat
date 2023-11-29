@@ -3,9 +3,10 @@
 public class SurveyQuestionResponse
 {
     public int Id { get; set; }
-    public string SurveyId { get; set; } = string.Empty;
+    public int SurveyResponseId { get; set; }
+    public int QuestionId { get; set; }
     public string ResponseText { get; set; } = string.Empty;
     
-    public SurveyResponse Survey { get; set; } = null!;
+    public SurveyResponse SurveyResponse { get; set; } = null!;
     public SurveyQuestion Question { get; set; } = null!;
 }

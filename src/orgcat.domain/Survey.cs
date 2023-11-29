@@ -1,6 +1,7 @@
 ﻿namespace orgcat.domain;
 
-public record SurveyQuestion(string SurveyId, int QuestionNumber, string QuestionText);
-public record Survey(string Id, string Name, string Description, List<SurveyQuestion> Questions);
-public record SurveyQuestionResponse(string SurveyId, string ResponseText);
-public record SurveyResponse(string SurveyId, List<SurveyQuestionResponse> Responses);
+public record NewSurvey(string Name);
+public record ExistingSurvey(int Id, string Name, List<SurveyQuestion> Questions);
+public record SurveyQuestion(int SurveyId, string QuestionText);
+public record SurveyResponse(int SurveyId, List<SurveyQuestionResponse> Responses);
+public record SurveyQuestionResponse(int SurveyResponseId, int QuestionId, string ResponseText);
