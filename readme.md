@@ -57,8 +57,7 @@ dotnet ef database update   # applies migrations to your local database
 # To do
 - survey
     - question:
-        - disallow empty input
-        - save response on click next
+        - load question text from db
         - goto next question on click next
     - welcome: say welcome back if survey is already started
 - inline todos
