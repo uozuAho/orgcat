@@ -99,5 +99,34 @@ namespace orgcat.postgresdb
             var survey = await _context.Surveys.SingleAsync(s => s.Name == surveyName);
             return survey.ToDomain();
         }
+
+        public Task<List<ExistingSurvey>> ListSurveys()
+        {
+            return _context.Surveys.Select(s => s.ToDomain()).ToListAsync();
+        }
+
+        public async Task Add(NewSurveyResponse response)
+        {
+            await _context.SurveyResponses.AddAsync(new Entities.SurveyResponse
+            {
+                Id = response.ResponseId,
+                SurveyId = response.SurveyId
+            });
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<SurveyQuestion?> LoadNextQuestion(string surveyResponseId)
+        {
+            var response = await _context.SurveyResponses
+                .Include(r => r.SurveyQuestionResponses)
+                .SingleAsync(r => r.Id == surveyResponseId);
+            
+            var next = await _context.SurveyQuestions
+                .Where(q => q.SurveyId == response.SurveyId)
+                .Where(q => response.SurveyQuestionResponses.All(r => r.QuestionId != q.Id))
+                .FirstOrDefaultAsync();
+
+            return next?.ToDomain();
+        }
     }
 }

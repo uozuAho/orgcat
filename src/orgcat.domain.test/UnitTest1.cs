@@ -1,3 +1,5 @@
+using Shouldly;
+
 namespace orgcat.domain.test;
 
 internal class FakeOrgCatStorage : IOrgCatStorage
@@ -61,11 +63,26 @@ internal class FakeOrgCatStorage : IOrgCatStorage
     {
         throw new NotImplementedException();
     }
+
+    public Task<List<ExistingSurvey>> ListSurveys()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task Add(NewSurveyResponse response)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<SurveyQuestion> LoadNextQuestion(string surveyResponseId)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 public class SurveyServiceTests
 {
-    private SurveyService _service = null!;
+    private ISurveyService _service = null!;
 
     [SetUp]
     public void Setup()
@@ -78,16 +95,17 @@ public class SurveyServiceTests
     public async Task SurveyWorkflow()
     {
         var surveyId = await _service.CreateSurvey("Just a few questions");
-        _service.AddQuestion(surveyId, "What is your name?");
-        _service.AddQuestion(surveyId, "What is your quest?");
-        _service.AddQuestion(surveyId, "What is your favorite color?");
+        await _service.AddQuestion(surveyId, "What is your name?");
+        await _service.AddQuestion(surveyId, "What is your quest?");
+        await _service.AddQuestion(surveyId, "What is your favorite color?");
 
-        var surveys = _service.ListAvailableSurveys();
+        var surveys = await _service.ListAvailableSurveys();
         var survey = surveys.Single(s => s.Id == surveyId);
 
-        var randomResponseId = "apsdou439k";
-        _service.StartSurveyResponse(surveyId, randomResponseId);
-        var question = _service.LoadNextQuestion(randomResponseId);
-        question.Text.ShouldBe("What is your name?");
+        const string responseId = "apsdou439k";
+        await _service.StartNewSurveyResponse(surveyId, responseId);
+        var question = await _service.LoadNextQuestion(responseId);
+        question.ShouldNotBeNull();
+        question.QuestionText.ShouldBe("What is your name?");
     }
 }

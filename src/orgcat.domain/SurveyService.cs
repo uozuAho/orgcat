@@ -4,6 +4,11 @@ public interface ISurveyService
 {
     Task<bool> IsSurveyStarted(string id);
     Task StartSurvey(string id);
+    Task<int> CreateSurvey(string justAFewQuestions);
+    Task AddQuestion(int surveyId, string questionText);
+    Task<List<ExistingSurvey>> ListAvailableSurveys();
+    Task StartNewSurveyResponse(int surveyId, string responseId);
+    Task<SurveyQuestion?> LoadNextQuestion(string responseId);
 }
 
 public class SurveyService : ISurveyService
@@ -35,5 +40,20 @@ public class SurveyService : ISurveyService
     public Task AddQuestion(int surveyId, string questionText)
     {
         return _storage.Add(new SurveyQuestion(surveyId, questionText));
+    }
+
+    public Task<List<ExistingSurvey>> ListAvailableSurveys()
+    {
+        return _storage.ListSurveys();
+    }
+
+    public Task StartNewSurveyResponse(int surveyId, string responseId)
+    {
+        return _storage.Add(new NewSurveyResponse(surveyId, responseId));
+    }
+
+    public Task<SurveyQuestion> LoadNextQuestion(string responseId)
+    {
+        return _storage.LoadNextQuestion(responseId);
     }
 }
