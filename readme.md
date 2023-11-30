@@ -52,9 +52,9 @@ dotnet ef database update   # applies migrations to your local database
 
 # To do
 - survey
-    - goto thankyou when no more questions
-    - move question logic to domain service?
-    - welcome: say welcome back if survey is already started
+    - welcome:
+        - goto thank you if already done
+        - say welcome back if survey is already started
 - inline todos
 - remove dummies
 

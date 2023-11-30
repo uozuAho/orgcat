@@ -34,8 +34,7 @@ public class Question : PageModel
 
         if (question == null)
         {
-            // todo: redirect to thank you page
-            QuestionText = "No more questions";
+            return RedirectToPage(nameof(ThankYou));
         }
         else
         {

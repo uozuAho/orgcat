@@ -14,6 +14,7 @@ public class Welcome : PageModel
 
     public Task<IActionResult> OnPostAsync()
     {
-        return Task.FromResult<IActionResult>(RedirectToPage("./Question", new {surveyResponseId=ResponseId}));
+        return Task.FromResult<IActionResult>(
+            RedirectToPage("./Question", new {surveyResponseId=ResponseId}));
     }
 }
