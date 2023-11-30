@@ -56,12 +56,6 @@ internal class FakeOrgCatStorage : IOrgCatStorage
         return Task.FromResult(existingSurvey with { Questions = questions });
     }
 
-    public Task Add(ExistingSurveyQuestion question)
-    {
-        _questions.Add(question);
-        return Task.CompletedTask;
-    }
-
     public Task<ExistingSurvey> LoadSurveyByName(string surveyName)
     {
         return Task.FromResult(_surveys.Single(s => s.Name == surveyName));

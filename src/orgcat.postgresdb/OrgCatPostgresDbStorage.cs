@@ -40,14 +40,6 @@ namespace orgcat.postgresdb
             await _context.SaveChangesAsync();
         }
 
-        public async Task<ExistingSurveyQuestion> LoadQuestion(int surveyId, int questionId)
-        {
-            var question = await _context.SurveyQuestions
-                .SingleAsync(r => r.SurveyId == surveyId && r.Id == questionId);
-
-            return question.ToDomain();
-        }
-
         public async Task Add(NewSurvey survey)
         {
             await _context.Surveys.AddAsync(new Entities.Survey
@@ -59,7 +51,7 @@ namespace orgcat.postgresdb
 
         public async Task Add(NewSurveyQuestion question)
         {
-            await _context.SurveyQuestions.AddAsync(new Entities.SurveyQuestion()
+            await _context.SurveyQuestions.AddAsync(new Entities.SurveyQuestion
             {
                 SurveyId = question.SurveyId,
                 QuestionText = question.QuestionText,

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using orgcat.domain;
-using orgcat.web.Pages.Survey;
 
 namespace orgcat.web.Controllers;
 

@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using orgcat.domain;
+using orgcat.postgresdb.Entities;
+using SurveyQuestionResponse = orgcat.postgresdb.Entities.SurveyQuestionResponse;
 
 namespace orgcat.postgresdb;
 
@@ -21,8 +23,8 @@ internal class OrgCatDb : DbContext
     {
     }
 
-    public DbSet<Entities.SurveyResponse> SurveyResponses { get; set; }
-    public DbSet<Entities.SurveyQuestionResponse> SurveyQuestionResponses { get; set; }
-    public DbSet<Entities.SurveyQuestion> SurveyQuestions { get; set; }
-    public DbSet<Entities.Survey> Surveys { get; set; }
+    public DbSet<SurveyResponse> SurveyResponses { get; set; } = null!;
+    public DbSet<SurveyQuestionResponse> SurveyQuestionResponses { get; set; } = null!;
+    public DbSet<SurveyQuestion> SurveyQuestions { get; set; } = null!;
+    public DbSet<Survey> Surveys { get; set; } = null!;
 }

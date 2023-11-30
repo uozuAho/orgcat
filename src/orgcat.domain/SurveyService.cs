@@ -2,12 +2,8 @@
 
 public interface ISurveyService
 {
-    Task<bool> IsSurveyStarted(string id);
-    Task StartSurvey(string responseId, int surveyId);
     Task<int> CreateSurvey(string justAFewQuestions);
     Task AddQuestion(int surveyId, string questionText);
-    Task<List<ExistingSurvey>> ListAvailableSurveys();
-    Task StartNewSurveyResponse(int surveyId, string responseId);
     Task<ExistingSurveyQuestion?> LoadNextQuestion(string responseId);
     Task StartLatestSurvey(string responseId);
     Task<SurveyResponseState> GetSurveyResponseState(string id);

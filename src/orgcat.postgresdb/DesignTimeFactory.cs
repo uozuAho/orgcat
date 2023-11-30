@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace orgcat.postgresdb;
 
+// ReSharper disable once UnusedType.Global  - used by ef core migrations
 internal class DesignTimeFactory : IDesignTimeDbContextFactory<OrgCatDb>
 {
     public OrgCatDb CreateDbContext(string[] args)

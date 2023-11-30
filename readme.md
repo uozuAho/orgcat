@@ -51,8 +51,6 @@ dotnet ef database update   # applies migrations to your local database
 
 
 # To do
-- WIP: inline todos
-- remove unused code
 - check that concurrency bug exists
 - implement viewing survey responses (no download)
 
