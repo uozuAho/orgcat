@@ -1,6 +1,6 @@
 # orgcat
 
-A little web server application to test out hosting services.
+A little web server + DB application to test out hosting services.
 
 # Quick start
 To run locally in a fresh dev environment:
