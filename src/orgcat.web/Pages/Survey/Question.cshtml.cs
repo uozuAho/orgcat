@@ -5,21 +5,22 @@ using orgcat.domain;
 
 namespace orgcat.web.Pages.Survey;
 
-[BindProperties(SupportsGet = true)]
 public class Question : PageModel
 {
     private readonly IOrgCatStorage _storage;
     private readonly ISurveyService _surveyService;
 
-    public int SurveyId { get; set; }
+    [BindProperty(SupportsGet = true)]
     public string SurveyResponseId { get; set; } = string.Empty;
-    public int QuestionId { get; set; }
 
-    public string QuestionText { get; set; } = string.Empty;
-
+    [BindProperty]
     [Required]
     [MinLength(1)]
     public string Answer { get; set; } = string.Empty;
+
+    [BindProperty]
+    public int QuestionId { get; set; }
+    public string QuestionText { get; set; } = string.Empty;
 
     public Question(IOrgCatStorage storage, ISurveyService surveyService)
     {
@@ -38,6 +39,7 @@ public class Question : PageModel
         }
         else
         {
+            QuestionId = question.Id;
             QuestionText = question.QuestionText;
         }
 
@@ -52,6 +54,7 @@ public class Question : PageModel
         }
 
         await _storage.Add(new SurveyQuestionResponse(SurveyResponseId, QuestionId, Answer));
-        return RedirectToPage("./Question", new {surveyId=SurveyId});
+
+        return RedirectToPage("./Question", new {SurveyResponseId});
     }
 }

@@ -51,12 +51,9 @@ dotnet ef database update   # applies migrations to your local database
 
 
 # To do
-- try to do a survey. fix bugs
-    - next question not loaded on click next
 - survey
-    - question:
-        - WIP: move question logic to domain service
-        - goto next question on click next
+    - goto thankyou when no more questions
+    - move question logic to domain service?
     - welcome: say welcome back if survey is already started
 - inline todos
 - remove dummies
