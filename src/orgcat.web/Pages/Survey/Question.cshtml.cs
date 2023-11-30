@@ -5,7 +5,7 @@ using orgcat.domain;
 
 namespace orgcat.web.Pages.Survey;
 
-[BindProperties]
+[BindProperties(SupportsGet = true)]
 public class Question : PageModel
 {
     private readonly IOrgCatStorage _storage;
