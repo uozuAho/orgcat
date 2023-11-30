@@ -65,9 +65,13 @@ public class SurveyService : ISurveyService
     public async Task<ExistingSurveyQuestion?> LoadNextQuestion(string responseId)
     {
         var response = await _storage.LoadSurveyResponse(responseId);
+        if (response == null) return null;
+
         var survey = await _storage.LoadSurvey(response.SurveyId);
+
         var nextQuestion = survey.Questions
             .FirstOrDefault(q => response.Responses.All(r => r.QuestionId != q.Id));
+
         return nextQuestion;
     }
 

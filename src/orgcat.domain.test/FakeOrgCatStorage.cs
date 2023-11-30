@@ -7,26 +7,6 @@ internal class FakeOrgCatStorage : IOrgCatStorage
     private readonly List<ExistingSurveyResponse> _surveyResponses = new();
     private readonly List<SurveyQuestionResponse> _questionResponses = new();
 
-    public void Add(NewDummy newDummy)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<ExistingDummy?> FindDummy(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void DeleteDummy(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<IList<ExistingDummy>> LoadAllDummies()
-    {
-        throw new NotImplementedException();
-    }
-
     public Task<bool> SurveyExists(string id)
     {
         throw new NotImplementedException();

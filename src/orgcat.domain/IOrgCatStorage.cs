@@ -2,10 +2,6 @@
 
 public interface IOrgCatStorage
 {
-    void Add(NewDummy newDummy);
-    Task<ExistingDummy?> FindDummy(int id);
-    void DeleteDummy(int id);
-    Task<IList<ExistingDummy>> LoadAllDummies();
     Task<bool> SurveyExists(string id);
     Task CreateNewSurveyResponse(string responseId, int surveyId);
     Task Add(SurveyQuestionResponse response);
