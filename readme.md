@@ -51,8 +51,6 @@ dotnet ef database update   # applies migrations to your local database
 
 
 # To do
-- survey
-    - move survey logic from pages/controllers to service
 - inline todos
 - remove unused code
 - remove dummies

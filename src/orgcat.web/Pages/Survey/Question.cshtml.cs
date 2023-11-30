@@ -7,7 +7,6 @@ namespace orgcat.web.Pages.Survey;
 
 public class Question : PageModel
 {
-    private readonly IOrgCatStorage _storage;
     private readonly ISurveyService _surveyService;
 
     [BindProperty(SupportsGet = true)]
@@ -22,9 +21,8 @@ public class Question : PageModel
     public int QuestionId { get; set; }
     public string QuestionText { get; set; } = string.Empty;
 
-    public Question(IOrgCatStorage storage, ISurveyService surveyService)
+    public Question(ISurveyService surveyService)
     {
-        _storage = storage;
         _surveyService = surveyService;
     }
 
@@ -33,14 +31,10 @@ public class Question : PageModel
         var question = await _surveyService.LoadNextQuestion(SurveyResponseId);
 
         if (question == null)
-        {
             return RedirectToPage(nameof(ThankYou));
-        }
-        else
-        {
-            QuestionId = question.Id;
-            QuestionText = question.QuestionText;
-        }
+
+        QuestionId = question.Id;
+        QuestionText = question.QuestionText;
 
         return Page();
     }
@@ -52,7 +46,7 @@ public class Question : PageModel
             return Page();
         }
 
-        await _storage.Add(new SurveyQuestionResponse(SurveyResponseId, QuestionId, Answer));
+        await _surveyService.AnswerQuestion(SurveyResponseId, QuestionId, Answer);
 
         return RedirectToPage("./Question", new {SurveyResponseId});
     }
