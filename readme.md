@@ -51,7 +51,7 @@ dotnet ef database update   # applies migrations to your local database
 
 
 # To do
-- inline todos
+- WIP: inline todos
 - remove unused code
 - remove dummies
 - check that concurrency bug exists

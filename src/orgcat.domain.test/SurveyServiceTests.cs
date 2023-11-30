@@ -21,14 +21,10 @@ public class SurveyServiceTests
         await _service.AddQuestion(surveyId, "What is your quest?");
         await _service.AddQuestion(surveyId, "What is your favorite color?");
 
-        var surveys = await _service.ListAvailableSurveys();
-        var survey = surveys.Single(s => s.Id == surveyId);
-
         const string responseId = "apsdou439k";
         (await _service.GetSurveyResponseState(responseId)).ShouldBe(SurveyResponseState.NotStarted);
 
-        // todo: should this be startsurvey?
-        await _service.StartNewSurveyResponse(surveyId, responseId);
+        await _service.StartLatestSurvey(responseId);
         (await _service.GetSurveyResponseState(responseId)).ShouldBe(SurveyResponseState.InProgress);
 
         var question = await _service.LoadNextQuestion(responseId);

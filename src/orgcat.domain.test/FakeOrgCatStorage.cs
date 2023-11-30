@@ -34,7 +34,14 @@ internal class FakeOrgCatStorage : IOrgCatStorage
 
     public Task CreateNewSurveyResponse(string responseId, int surveyId)
     {
-        throw new NotImplementedException();
+        _surveyResponses.Add(
+            new ExistingSurveyResponse(
+                surveyId,
+                responseId,
+                new List<SurveyQuestionResponse>()
+            )
+        );
+        return Task.CompletedTask;
     }
 
     public Task Add(SurveyQuestionResponse response)
@@ -44,11 +51,6 @@ internal class FakeOrgCatStorage : IOrgCatStorage
     }
 
     public Task<ExistingSurveyQuestion> LoadQuestion(int surveyId, int questionId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<string> LoadQuestionText(string surveyId, int questionId)
     {
         throw new NotImplementedException();
     }
