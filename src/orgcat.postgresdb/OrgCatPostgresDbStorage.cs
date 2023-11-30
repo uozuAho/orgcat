@@ -11,7 +11,7 @@ namespace orgcat.postgresdb
         {
             _context = context;
         }
-    
+
         public void Add(NewDummy newDummy)
         {
             _context.Dummies.Add(Entities.Dummy.FromDomain(newDummy));
@@ -52,7 +52,7 @@ namespace orgcat.postgresdb
                 Id = id,
                 SurveyId = surveyId
             });
-        
+
             await _context.SaveChangesAsync();
         }
 
@@ -64,7 +64,7 @@ namespace orgcat.postgresdb
                 QuestionId = response.QuestionId,
                 ResponseText = response.ResponseText
             });
-        
+
             await _context.SaveChangesAsync();
         }
 
@@ -72,7 +72,7 @@ namespace orgcat.postgresdb
         {
             var question = await _context.SurveyQuestions
                 .SingleAsync(r => r.SurveyId == surveyId && r.Id == questionId);
-            
+
             return question.ToDomain();
         }
 
@@ -97,10 +97,14 @@ namespace orgcat.postgresdb
 
         public async Task<ExistingSurvey> LoadSurvey(int id)
         {
-            var survey = await _context.Surveys.SingleAsync(s => s.Id == id);
+            var survey = await _context
+                .Surveys
+                .Include(s => s.SurveyQuestions)
+                .SingleAsync(s => s.Id == id);
+
             return survey.ToDomain();
         }
-        
+
         public async Task<ExistingSurvey> LoadSurveyByName(string surveyName)
         {
             var survey = await _context.Surveys.SingleAsync(s => s.Name == surveyName);
@@ -121,13 +125,13 @@ namespace orgcat.postgresdb
             });
             await _context.SaveChangesAsync();
         }
-        
+
         public async Task<ExistingSurveyResponse> LoadSurveyResponse(string responseId)
         {
             var response = await _context.SurveyResponses
                 .Include(r => r.SurveyQuestionResponses)
                 .SingleAsync(r => r.Id == responseId);
-            
+
             return response.ToDomain();
         }
     }
