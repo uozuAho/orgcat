@@ -25,10 +25,29 @@ public class SurveyServiceTests
         var survey = surveys.Single(s => s.Id == surveyId);
 
         const string responseId = "apsdou439k";
+        (await _service.GetSurveyResponseState(responseId)).ShouldBe(SurveyResponseState.NotStarted);
+
         // todo: should this be startsurvey?
         await _service.StartNewSurveyResponse(surveyId, responseId);
+        (await _service.GetSurveyResponseState(responseId)).ShouldBe(SurveyResponseState.InProgress);
+
         var question = await _service.LoadNextQuestion(responseId);
         question.ShouldNotBeNull();
         question.QuestionText.ShouldBe("What is your name?");
+        await _service.AnswerQuestion(responseId, question.Id, "Sir Lancelot of Camelot");
+
+        question = await _service.LoadNextQuestion(responseId);
+        question.ShouldNotBeNull();
+        question.QuestionText.ShouldBe("What is your quest?");
+        await _service.AnswerQuestion(responseId, question.Id, "To seek the Holy Grail");
+
+        question = await _service.LoadNextQuestion(responseId);
+        question.ShouldNotBeNull();
+        question.QuestionText.ShouldBe("What is your favorite color?");
+        await _service.AnswerQuestion(responseId, question.Id, "Blue");
+
+        question = await _service.LoadNextQuestion(responseId);
+        question.ShouldBeNull();
+        (await _service.GetSurveyResponseState(responseId)).ShouldBe(SurveyResponseState.Complete);
     }
 }

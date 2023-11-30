@@ -126,13 +126,13 @@ namespace orgcat.postgresdb
             await _context.SaveChangesAsync();
         }
 
-        public async Task<ExistingSurveyResponse> LoadSurveyResponse(string responseId)
+        public async Task<ExistingSurveyResponse?> LoadSurveyResponse(string responseId)
         {
             var response = await _context.SurveyResponses
                 .Include(r => r.SurveyQuestionResponses)
-                .SingleAsync(r => r.Id == responseId);
+                .SingleOrDefaultAsync(r => r.Id == responseId);
 
-            return response.ToDomain();
+            return response?.ToDomain();
         }
     }
 }

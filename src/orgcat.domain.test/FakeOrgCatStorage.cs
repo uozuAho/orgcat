@@ -39,7 +39,8 @@ internal class FakeOrgCatStorage : IOrgCatStorage
 
     public Task Add(SurveyQuestionResponse response)
     {
-        throw new NotImplementedException();
+        _questionResponses.Add(response);
+        return Task.CompletedTask;
     }
 
     public Task<ExistingSurveyQuestion> LoadQuestion(int surveyId, int questionId)
@@ -69,7 +70,7 @@ internal class FakeOrgCatStorage : IOrgCatStorage
     {
         var existingSurvey = _surveys.Single(s => s.Id == id);
         var questions = _questions.Where(q => q.SurveyId == id).ToList();
-        
+
         return Task.FromResult(existingSurvey with { Questions = questions });
     }
 
@@ -95,18 +96,20 @@ internal class FakeOrgCatStorage : IOrgCatStorage
             response.SurveyId,
             response.ResponseId,
             new List<SurveyQuestionResponse>()));
-        
+
         return Task.CompletedTask;
     }
 
-    public Task<ExistingSurveyResponse> LoadSurveyResponse(string responseId)
+    public Task<ExistingSurveyResponse?> LoadSurveyResponse(string responseId)
     {
-        var response = _surveyResponses.Single(r => r.ResponseId == responseId);
-        
+        var response = _surveyResponses.SingleOrDefault(r => r.ResponseId == responseId);
+
+        if (response == null) return Task.FromResult<ExistingSurveyResponse?>(null);
+
         var questionResponses = _questionResponses
             .Where(r => r.SurveyResponseId == responseId)
             .ToList();
-        
-        return Task.FromResult(response with { Responses = questionResponses });
+
+        return Task.FromResult<ExistingSurveyResponse?>(response with { Responses = questionResponses });
     }
 }

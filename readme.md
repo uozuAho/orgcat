@@ -52,11 +52,12 @@ dotnet ef database update   # applies migrations to your local database
 
 # To do
 - survey
-    - welcome:
-        - goto thank you if already done
-        - say welcome back if survey is already started
+    - move survey logic from pages/controllers to service
 - inline todos
+- remove unused code
 - remove dummies
+- check that concurrency bug exists
+- implement viewing survey responses (no download)
 
 # Maybe/later
 - replace survey controller with start page

@@ -16,5 +16,5 @@ public interface IOrgCatStorage
     Task<ExistingSurvey> LoadSurveyByName(string surveyName);
     Task<List<ExistingSurvey>> ListSurveys();
     Task Add(NewSurveyResponse response);
-    Task<ExistingSurveyResponse> LoadSurveyResponse(string responseId);
+    Task<ExistingSurveyResponse?> LoadSurveyResponse(string responseId);
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using orgcat.domain;
+using orgcat.web.Pages.Survey;
 
 namespace orgcat.web.Controllers;
 
@@ -14,20 +15,19 @@ public class SurveyController : Controller
 
     public async Task<IActionResult> Start(string id)
     {
-        var isStarted = await _surveyService.IsSurveyStarted(id);
+        var surveyState = await _surveyService.GetSurveyResponseState(id);
 
-        if (!isStarted)
+        if (surveyState == SurveyResponseState.NotStarted)
         {
             await _surveyService.StartLatestSurvey(id);
             return RedirectToPage("/Survey/Welcome", new {responseId=id});
         }
-        else
-        {
-            // todo:
-            // var question = _surveyService.GetNextQuestion(id);
-            // Show(question);
 
-            return RedirectToPage("/Survey/Welcome", new {responseId=id});
+        if (surveyState == SurveyResponseState.InProgress)
+        {
+            return RedirectToPage("/Survey/Welcome", new {responseId=id, inProgress=true});
         }
+
+        return RedirectToPage("/Survey/ThankYou");
     }
 }

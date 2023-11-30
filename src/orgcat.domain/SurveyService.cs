@@ -10,6 +10,15 @@ public interface ISurveyService
     Task StartNewSurveyResponse(int surveyId, string responseId);
     Task<ExistingSurveyQuestion?> LoadNextQuestion(string responseId);
     Task StartLatestSurvey(string responseId);
+    Task<SurveyResponseState> GetSurveyResponseState(string id);
+    Task AnswerQuestion(string responseId, int questionId, string answer);
+}
+
+public enum SurveyResponseState
+{
+    NotStarted,
+    InProgress,
+    Complete
 }
 
 public class SurveyService : ISurveyService
@@ -20,7 +29,7 @@ public class SurveyService : ISurveyService
     {
         _storage = storage;
     }
-    
+
     public async Task<bool> IsSurveyStarted(string id)
     {
         return await _storage.SurveyExists(id);
@@ -70,5 +79,24 @@ public class SurveyService : ISurveyService
             .First();
 
         await StartSurvey(responseId, latestSurvey.Id);
+    }
+
+    public async Task<SurveyResponseState> GetSurveyResponseState(string id)
+    {
+        var surveyResponse = await _storage.LoadSurveyResponse(id);
+
+        if (surveyResponse == null) return SurveyResponseState.NotStarted;
+
+        var survey = await _storage.LoadSurvey(surveyResponse.SurveyId);
+
+        if (surveyResponse.Responses.Count == survey.Questions.Count)
+            return SurveyResponseState.Complete;
+
+        return SurveyResponseState.InProgress;
+    }
+
+    public Task AnswerQuestion(string responseId, int questionId, string answer)
+    {
+        return _storage.Add(new SurveyQuestionResponse(responseId, questionId, answer));
     }
 }
