@@ -9,12 +9,19 @@ To run locally in a fresh dev environment:
 - install docker
 
 ```sh
+# Dev:
 ./db_reset.sh                           # wipes & recreates database
 dotnet run --project src/orgcat.web     # runs the web server
 
 # see what's in the db
 docker exec -it orgcat_pg psql -U postgres -d orgcat
 
+
+# Run locally in production-like mode in docker:
+cd src
+docker-compose up -d
+
+# Other stuff:
 # to reproduce a concurrency bug:
 seq 1 2 | xargs -n1 -P3 curl localhost:5056/survey/start/<some_new_id>
 ```
@@ -58,10 +65,31 @@ dotnet ef database update   # applies migrations to your local database
 
 
 # To do
+- disable https/hsts in app server
+- docker compose
+    - run db reset on compose up
+- remove the dev mode message from the error page
+    - eg run in docker compose without running db migrations, try to start a survey
+- Try deploying to:
+    - app
+        - app runner
+        - ecs + EC2
+        - ECS + fargate
+        - more aws?
+        - fly
+        - EC2 (maybe later, not a likely contender)
+        - more container runners?
+    - db
+        - planetscale
+        - neon
+        - aurora serverless
+        - RDS
 
 # Maybe/later
-- implement viewing survey responses (no download)
 - fuzz & load test via http
+- remove test project(s) from docker image
+- minimise docker image size
+- implement viewing survey responses (no download)
 - get rid of new/existing distinction in domain types
 - replace survey controller with start page
 - automate arch checks
