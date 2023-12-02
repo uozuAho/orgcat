@@ -77,8 +77,9 @@ dotnet ef database update   # applies migrations to your local database
         - ECS + fargate
         - more aws?
         - fly
-        - EC2 (maybe later, not a likely contender)
         - more container runners?
+        - lambda?
+        - EC2 (maybe later, not a likely contender)
     - db
         - planetscale
         - neon
