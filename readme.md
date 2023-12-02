@@ -17,9 +17,9 @@ dotnet run --project src/orgcat.web     # runs the web server
 docker exec -it orgcat_pg psql -U postgres -d orgcat
 
 
-# Run locally in production-like mode in docker:
+# Run locally in production-like mode in docker (goto localhost:5056)
 cd src
-docker-compose up -d
+docker-compose build && docker-compose up -d
 
 # Other stuff:
 # to reproduce a concurrency bug:
@@ -68,8 +68,6 @@ dotnet ef database update   # applies migrations to your local database
 - disable https/hsts in app server
 - docker compose
     - run db reset on compose up
-- remove the dev mode message from the error page
-    - eg run in docker compose without running db migrations, try to start a survey
 - Try deploying to:
     - app
         - app runner
