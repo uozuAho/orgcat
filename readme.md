@@ -26,6 +26,10 @@ MSYS_NO_PATHCONV=1 docker exec src-db-1 psql -U postgres -d orgcat -f /seeddb.sq
 # goto localhost:5056
 
 
+# Deployment:
+# See readmes under infra/ for deployment options.
+
+
 # Other stuff:
 # to reproduce a concurrency bug:
 seq 1 2 | xargs -n1 -P3 curl localhost:5056/survey/start/<some_new_id>
@@ -55,6 +59,7 @@ seq 1 2 | xargs -n1 -P3 curl localhost:5056/survey/start/<some_new_id>
 - separate staging and prod environments
 - CD: deploy on push main, goes to prod when tests pass
 - structured logging, metrics
+- fast rollback (skip full build, revert to previous working deployment)
 - maybe: tracing
 
 
@@ -72,17 +77,19 @@ dotnet ef database update   # applies migrations to your local database
 # To do
 - Try deploying to:
     - app
+        - WIP: fly
+            - needs connection string secret
         - app runner
         - ecs + EC2
         - ECS + fargate
         - more aws?
-        - fly
         - more container runners?
         - lambda?
         - EC2 (maybe later, not a likely contender)
     - db
-        - planetscale
+        - fly postgres
         - neon
+        - planetscale
         - aurora serverless
         - RDS
 
