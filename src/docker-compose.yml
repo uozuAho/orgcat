@@ -5,12 +5,20 @@ services:
     ports:
       - "5056:80"
     environment:
-      - ConnectionStrings__OrgCatDb=Host=db;Database=orgcat;Username=postgres;Password=asdfoot
+      - ConnectionStrings__OrgCatDb=Host=db;Database=orgcat;Username=postgres;Password=asdfoot;
     depends_on:
       - db
+      - db-migrate
   db:
     image: postgres:latest
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=asdfoot
       - POSTGRES_DB=orgcat
+  db-migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile_migrations
+    depends_on:
+      - db
+    command: --connection "Host=db;Database=orgcat;Username=postgres;Password=asdfoot;"

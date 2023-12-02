@@ -1,0 +1,12 @@
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
+WORKDIR /App
+
+COPY . ./
+WORKDIR /App/orgcat.postgresdb
+RUN dotnet tool restore
+RUN dotnet ef migrations bundle
+
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
+WORKDIR /App
+COPY --from=build-env /App/orgcat.postgresdb/efbundle .
+ENTRYPOINT ["./efbundle"]
