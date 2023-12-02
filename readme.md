@@ -87,9 +87,9 @@ dotnet ef database update   # applies migrations to your local database
         - lambda?
         - EC2 (maybe later, not a likely contender)
     - db
-        - fly postgres
         - neon
-        - planetscale
+        - supabase
+        - fly postgres
         - aurora serverless
         - RDS
 

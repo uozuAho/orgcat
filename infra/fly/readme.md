@@ -5,4 +5,6 @@
 
 ```sh
 ./deploy.sh
+# have a play, then:
+./destroy.sh
 ```
