@@ -65,7 +65,6 @@ dotnet ef database update   # applies migrations to your local database
 
 
 # To do
-- disable https/hsts in app server
 - docker compose
     - run db reset on compose up
 - Try deploying to:
