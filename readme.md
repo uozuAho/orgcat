@@ -70,8 +70,6 @@ dotnet ef database update   # applies migrations to your local database
 
 
 # To do
-- docker compose
-    - run db reset on compose up
 - Try deploying to:
     - app
         - app runner
@@ -90,8 +88,6 @@ dotnet ef database update   # applies migrations to your local database
 # Maybe/later
 - fuzz & load test via http
 - remove test project(s) from docker image
-- minimise docker image sizes
-    - efbundle could just be a tiny linux image?
 - implement viewing survey responses (no download)
 - get rid of new/existing distinction in domain types
 - replace survey controller with start page
