@@ -17,9 +17,14 @@ dotnet run --project src/orgcat.web     # runs the web server
 docker exec -it orgcat_pg psql -U postgres -d orgcat
 
 
-# Run locally in production-like mode in docker (goto localhost:5056)
+# Run locally in production-like mode in docker
 cd src
 docker-compose build && docker-compose up -d
+cd orgcast.postgresdb
+docker cp seeddb.sql src-db-1:/seeddb.sql
+MSYS_NO_PATHCONV=1 docker exec src-db-1 psql -U postgres -d orgcat -f /seeddb.sql
+# goto localhost:5056
+
 
 # Other stuff:
 # to reproduce a concurrency bug:
