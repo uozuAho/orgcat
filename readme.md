@@ -78,8 +78,6 @@ dotnet ef database update   # applies migrations to your local database
 
 
 # To do
-- fix build warning re: out dir argument when publishing solution. just publish
-  web app?
 - change bug to make survey unusable after concurrency error
     - infra requirement is to be able to fix this without data loss
 - create a run sheet to reproduce & fix bug

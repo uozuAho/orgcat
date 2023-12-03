@@ -1,5 +1,5 @@
 */**/obj/
 */**/bin/
-out
+orgcat.web/out
 .idea
 src.sln.DotSettings.user
