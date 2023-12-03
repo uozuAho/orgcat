@@ -1,23 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using orgcat.domain;
+﻿using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using orgcat.postgresdb.Entities;
 using SurveyQuestionResponse = orgcat.postgresdb.Entities.SurveyQuestionResponse;
 
 namespace orgcat.postgresdb;
 
-public static class StorageConfiguration
-{
-    public static void AddOrgCatPostgresDb(
-        this IServiceCollection services,
-        string connectionString)
-    {
-        services.AddDbContext<OrgCatDb>(options => options.UseNpgsql(connectionString));
-        services.AddTransient<IOrgCatStorage, OrgCatPostgresDbStorage>();
-    }
-}
-
-internal class OrgCatDb : DbContext
+internal class OrgCatDb : DbContext, IDataProtectionKeyContext
 {
     public OrgCatDb(DbContextOptions<OrgCatDb> options) : base(options)
     {
@@ -27,4 +15,5 @@ internal class OrgCatDb : DbContext
     public DbSet<SurveyQuestionResponse> SurveyQuestionResponses { get; set; } = null!;
     public DbSet<SurveyQuestion> SurveyQuestions { get; set; } = null!;
     public DbSet<Survey> Surveys { get; set; } = null!;
+    public DbSet<DataProtectionKey> DataProtectionKeys { get; set; } = null!;
 }
