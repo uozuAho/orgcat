@@ -78,8 +78,6 @@ dotnet ef database update   # applies migrations to your local database
 
 
 # To do
-- fix form token key issue: https://learn.microsoft.com/en-us/aspnet/core/security/data-protection/configuration/overview?view=aspnetcore-7.0
-    - DONE: reproduce locally with docker compose
 - fix build warning re: out dir argument when publishing solution. just publish
   web app?
 - change bug to make survey unusable after concurrency error
@@ -112,6 +110,7 @@ dotnet ef database update   # applies migrations to your local database
         - RDS
 
 # Maybe/later
+- turn of EF info logs
 - fuzz & load test via http
 - remove test project(s) from docker image
 - implement viewing survey responses (no download)
