@@ -1,8 +1,8 @@
 # orgcat
 
-A little buggy web server + DB application to test out hosting services. The goal
-is to be able to test hosting services for ease of (re)deployment, monitoring
-and debugging and more.
+A little buggy web server + DB application to test out hosting services. The
+goal is to be able to test hosting services for ease of (re)deployment,
+monitoring and debugging and more.
 
 # Quick start
 To run locally in a fresh dev environment:
@@ -19,13 +19,13 @@ dotnet run --project src/orgcat.web     # runs the web server
 docker exec -it orgcat_pg psql -U postgres -d orgcat
 
 
-# Run locally in production-like mode in docker
+# Run locally in a production-like mode in docker
 cd src
 docker-compose build && docker-compose up -d
 cd orgcast.postgresdb
 docker cp seeddb.sql src-db-1:/seeddb.sql
 MSYS_NO_PATHCONV=1 docker exec src-db-1 psql -U postgres -d orgcat -f /seeddb.sql
-# goto localhost:5056
+# goto localhost:5057
 
 
 # Deployment:
