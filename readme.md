@@ -58,8 +58,9 @@ seq 1 2 | xargs -n1 -P3 curl localhost:5056/survey/start/<some_new_id>
 # Infra requirements
 - separate staging and prod environments
 - CD: deploy on push main, goes to prod when tests pass
-- structured logging, metrics
+- logging, metrics
 - fast rollback (skip full build, revert to previous working deployment)
+- maybe: structured logs with nice querying
 - maybe: tracing
 
 
@@ -76,8 +77,10 @@ dotnet ef database update   # applies migrations to your local database
 
 # To do
 - deploy to fly + neon
-    - fix app prod http port
+    - run migrations
 - automate fly + neon creation and deployment
+- fix build warning re: out dir argument when publishing solution. just publish
+  web app?
 - change bug to make survey unusable after concurrency error
     - infra requirement is to be able to fix this without data loss
 - try other deployment options
