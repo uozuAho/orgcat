@@ -1,6 +1,8 @@
 # orgcat
 
-A little web server + DB application to test out hosting services.
+A little buggy web server + DB application to test out hosting services. The
+goal is to be able to test hosting services for ease of (re)deployment,
+monitoring and debugging and more.
 
 # Quick start
 To run locally in a fresh dev environment:
@@ -17,13 +19,17 @@ dotnet run --project src/orgcat.web     # runs the web server
 docker exec -it orgcat_pg psql -U postgres -d orgcat
 
 
-# Run locally in production-like mode in docker
+# Run locally in a production-like mode in docker
 cd src
 docker-compose build && docker-compose up -d
 cd orgcast.postgresdb
 docker cp seeddb.sql src-db-1:/seeddb.sql
 MSYS_NO_PATHCONV=1 docker exec src-db-1 psql -U postgres -d orgcat -f /seeddb.sql
-# goto localhost:5056
+# goto localhost:5057
+
+
+# Deployment:
+# See readmes under infra/ for deployment options.
 
 
 # Other stuff:
@@ -54,7 +60,9 @@ seq 1 2 | xargs -n1 -P3 curl localhost:5056/survey/start/<some_new_id>
 # Infra requirements
 - separate staging and prod environments
 - CD: deploy on push main, goes to prod when tests pass
-- structured logging, metrics
+- logging, metrics
+- fast rollback (skip full build, revert to previous working deployment)
+- maybe: structured logs with nice querying
 - maybe: tracing
 
 
@@ -70,19 +78,35 @@ dotnet ef database update   # applies migrations to your local database
 
 
 # To do
-- Try deploying to:
+- fix form token key issue: https://learn.microsoft.com/en-us/aspnet/core/security/data-protection/configuration/overview?view=aspnetcore-7.0
+- fix build warning re: out dir argument when publishing solution. just publish
+  web app?
+- change bug to make survey unusable after concurrency error
+    - infra requirement is to be able to fix this without data loss
+- create a run sheet to reproduce & fix bug
+    - users complain they can't do survey
+    - check logs, metrics, traces
+    - reproduce locally
+    - reproduce in staging
+    - fix, confirm locally
+    - confirm fixed in staging
+        - fix any stuck surveys in staging
+    - confirm fixed in prod
+    - fix any stuck surveys in prod
+- check fly + neon infra vs requirements
+- try other deployment options
     - app
         - app runner
         - ecs + EC2
         - ECS + fargate
-        - more aws?
-        - fly
+        - more aws? amplify?
         - more container runners?
         - lambda?
         - EC2 (maybe later, not a likely contender)
     - db
-        - planetscale
-        - neon
+        - supabase
+        - fly postgres
+        - fly litefs (replicated sqlite)
         - aurora serverless
         - RDS
 

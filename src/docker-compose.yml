@@ -3,7 +3,7 @@ services:
   webapp:
     build: .
     ports:
-      - "5056:80"
+      - "5057:5001"
     environment:
       - ConnectionStrings__OrgCatDb=Host=db;Database=orgcat;Username=postgres;Password=asdfoot;
     depends_on:

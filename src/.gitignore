@@ -477,3 +477,6 @@ $RECYCLE.BIN/
 *.lnk
 
 out/
+
+# just in case fly config works its way in here
+fly.toml
