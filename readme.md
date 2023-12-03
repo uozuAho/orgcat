@@ -75,19 +75,21 @@ dotnet ef database update   # applies migrations to your local database
 
 
 # To do
-- Try deploying to:
+- deploy to fly + neon
+    - fix app prod http port
+- automate fly + neon creation and deployment
+- change bug to make survey unusable after concurrency error
+    - infra requirement is to be able to fix this without data loss
+- try other deployment options
     - app
-        - WIP: fly
-            - needs connection string secret
         - app runner
         - ecs + EC2
         - ECS + fargate
-        - more aws?
+        - more aws? amplify?
         - more container runners?
         - lambda?
         - EC2 (maybe later, not a likely contender)
     - db
-        - neon
         - supabase
         - fly postgres
         - aurora serverless
