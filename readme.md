@@ -76,8 +76,6 @@ dotnet ef database update   # applies migrations to your local database
 
 
 # To do
-- deploy to fly + neon
-    - seed data
 - automate fly + neon creation and deployment
     - separate 'first_run_only' and 'pipeline' scripts
     - maybe: try a CICD service/actions?
@@ -85,6 +83,17 @@ dotnet ef database update   # applies migrations to your local database
   web app?
 - change bug to make survey unusable after concurrency error
     - infra requirement is to be able to fix this without data loss
+- create a run sheet to reproduce & fix bug
+    - users complain they can't do survey
+    - check logs, metrics, traces
+    - reproduce locally
+    - reproduce in staging
+    - fix, confirm locally
+    - confirm fixed in staging
+        - fix any stuck surveys in staging
+    - confirm fixed in prod
+    - fix any stuck surveys in prod
+- check fly + neon infra vs requirements
 - try other deployment options
     - app
         - app runner
