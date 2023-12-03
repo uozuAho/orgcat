@@ -1,9 +1,27 @@
 version: '3.8'
 services:
-  webapp:
+  load-balancer:
+    image: nginx:latest
+    ports:
+      - "5057:5057"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - webapp1
+      - webapp2
+  webapp1:
     build: .
     ports:
-      - "5057:5001"
+      - "5100:5001"
+    environment:
+      - ConnectionStrings__OrgCatDb=Host=db;Database=orgcat;Username=postgres;Password=asdfoot;
+    depends_on:
+      - db
+      - db-migrate
+  webapp2:
+    build: .
+    ports:
+      - "5101:5001"
     environment:
       - ConnectionStrings__OrgCatDb=Host=db;Database=orgcat;Username=postgres;Password=asdfoot;
     depends_on:

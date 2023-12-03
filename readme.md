@@ -22,7 +22,7 @@ docker exec -it orgcat_pg psql -U postgres -d orgcat
 # Run locally in a production-like mode in docker
 cd src
 docker-compose build && docker-compose up -d
-cd orgcast.postgresdb
+cd orgcat.postgresdb
 docker cp seeddb.sql src-db-1:/seeddb.sql
 MSYS_NO_PATHCONV=1 docker exec src-db-1 psql -U postgres -d orgcat -f /seeddb.sql
 # goto localhost:5057
@@ -79,6 +79,7 @@ dotnet ef database update   # applies migrations to your local database
 
 # To do
 - fix form token key issue: https://learn.microsoft.com/en-us/aspnet/core/security/data-protection/configuration/overview?view=aspnetcore-7.0
+    - DONE: reproduce locally with docker compose
 - fix build warning re: out dir argument when publishing solution. just publish
   web app?
 - change bug to make survey unusable after concurrency error
