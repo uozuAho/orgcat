@@ -1,10 +1,6 @@
 #!/bin/bash
 set -eu
 
-# HACK: fly deploy config flag is broken
-# I should be able to just run fly deploy -c fly.toml ../../src
-cp fly.toml ../../src
-pushd ../../src
-fly deploy
-rm fly.toml
-popd
+# note that using a relative path for configpath will not work (at least on windows)
+configpath=$(realpath fly.toml)
+fly deploy -c $configpath ../../src

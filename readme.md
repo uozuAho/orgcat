@@ -78,8 +78,7 @@ dotnet ef database update   # applies migrations to your local database
 
 
 # To do
-- automate fly + neon creation and deployment
-    - try fixing deploy hack: use abs path for config?
+- fix form token key issue: https://learn.microsoft.com/en-us/aspnet/core/security/data-protection/configuration/overview?view=aspnetcore-7.0
 - fix build warning re: out dir argument when publishing solution. just publish
   web app?
 - change bug to make survey unusable after concurrency error
