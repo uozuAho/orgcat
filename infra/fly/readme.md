@@ -9,6 +9,7 @@
 fly apps create woz-orgcat
 source .secrets
 fly secrets set ConnectionStrings__OrgCatDb=$NEONDB_CONNSTRING
+./db_migrate.sh
 ./deploy.sh
 # check app:
 # - https://woz-orgcat.fly.dev

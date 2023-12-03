@@ -77,8 +77,10 @@ dotnet ef database update   # applies migrations to your local database
 
 # To do
 - deploy to fly + neon
-    - run migrations
+    - seed data
 - automate fly + neon creation and deployment
+    - separate 'first_run_only' and 'pipeline' scripts
+    - maybe: try a CICD service/actions?
 - fix build warning re: out dir argument when publishing solution. just publish
   web app?
 - change bug to make survey unusable after concurrency error
@@ -95,6 +97,7 @@ dotnet ef database update   # applies migrations to your local database
     - db
         - supabase
         - fly postgres
+        - fly litefs (replicated sqlite)
         - aurora serverless
         - RDS
 
