@@ -1,6 +1,8 @@
 # orgcat
 
-A little web server + DB application to test out hosting services.
+A little buggy web server + DB application to test out hosting services. The goal
+is to be able to test hosting services for ease of (re)deployment, monitoring
+and debugging and more.
 
 # Quick start
 To run locally in a fresh dev environment:
@@ -77,8 +79,7 @@ dotnet ef database update   # applies migrations to your local database
 
 # To do
 - automate fly + neon creation and deployment
-    - separate 'first_run_only' and 'pipeline' scripts
-    - maybe: try a CICD service/actions?
+    - try fixing deploy hack: use abs path for config?
 - fix build warning re: out dir argument when publishing solution. just publish
   web app?
 - change bug to make survey unusable after concurrency error

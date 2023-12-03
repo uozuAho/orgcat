@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -eu
+
 source .secrets
 pushd ../../src
 docker-compose build db-migrate
