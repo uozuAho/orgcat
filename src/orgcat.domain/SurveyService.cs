@@ -48,16 +48,6 @@ public class SurveyService : ISurveyService
         return _storage.Add(new NewSurveyQuestion(surveyId, questionText));
     }
 
-    public Task<List<ExistingSurvey>> ListAvailableSurveys()
-    {
-        return _storage.ListSurveys();
-    }
-
-    public Task StartNewSurveyResponse(int surveyId, string responseId)
-    {
-        return _storage.Add(new NewSurveyResponse(surveyId, responseId));
-    }
-
     public async Task<ExistingSurveyQuestion?> LoadNextQuestion(string responseId)
     {
         var response = await _storage.LoadSurveyResponse(responseId);

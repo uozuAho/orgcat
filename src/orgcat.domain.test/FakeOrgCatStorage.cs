@@ -24,9 +24,9 @@ internal class FakeOrgCatStorage : IOrgCatStorage
         return Task.CompletedTask;
     }
 
-    public Task Add(SurveyQuestionResponse response)
+    public Task Add(SurveyQuestionResponse questionResponse)
     {
-        _questionResponses.Add(response);
+        _questionResponses.Add(questionResponse);
         return Task.CompletedTask;
     }
 

@@ -14,27 +14,32 @@ namespace orgcat.postgresdb
 
         public async Task<bool> SurveyExists(string id)
         {
-            return await _context.SurveyResponses.AnyAsync(s => s.Id == id);
+            return await _context.SurveyResponses.AnyAsync(s => s.ResponseId == id);
         }
 
         public async Task CreateNewSurveyResponse(string id, int surveyId)
         {
             _context.SurveyResponses.Add(new Entities.SurveyResponse
             {
-                Id = id,
+                ResponseId = id,
                 SurveyId = surveyId
             });
 
             await _context.SaveChangesAsync();
         }
 
-        public async Task Add(SurveyQuestionResponse response)
+        public async Task Add(SurveyQuestionResponse questionResponse)
         {
+            var surveyResponseId = await _context.SurveyResponses
+                .Where(r => r.ResponseId == questionResponse.SurveyResponseId)
+                .Select(r => r.Id)
+                .SingleAsync();
+
             _context.SurveyQuestionResponses.Add(new Entities.SurveyQuestionResponse
             {
-                SurveyResponseId = response.SurveyResponseId,
-                QuestionId = response.QuestionId,
-                ResponseText = response.ResponseText
+                SurveyResponseId = surveyResponseId,
+                QuestionId = questionResponse.QuestionId,
+                ResponseText = questionResponse.ResponseText
             });
 
             await _context.SaveChangesAsync();
@@ -80,21 +85,11 @@ namespace orgcat.postgresdb
             return _context.Surveys.Select(s => s.ToDomain()).ToListAsync();
         }
 
-        public async Task Add(NewSurveyResponse response)
-        {
-            await _context.SurveyResponses.AddAsync(new Entities.SurveyResponse
-            {
-                Id = response.ResponseId,
-                SurveyId = response.SurveyId
-            });
-            await _context.SaveChangesAsync();
-        }
-
         public async Task<ExistingSurveyResponse?> LoadSurveyResponse(string responseId)
         {
             var response = await _context.SurveyResponses
                 .Include(r => r.SurveyQuestionResponses)
-                .SingleOrDefaultAsync(r => r.Id == responseId);
+                .SingleOrDefaultAsync(r => r.ResponseId == responseId);
 
             return response?.ToDomain();
         }
