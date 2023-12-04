@@ -79,7 +79,7 @@ dotnet ef database update   # applies migrations to your local database
 
 # To do
 - fix the bug
-    - unique constraint on response id
+    - DONE: unique constraint on response id
     - transaction for check and create
 - create a run sheet to reproduce & fix bug
     - users complain they can't do survey
@@ -89,6 +89,7 @@ dotnet ef database update   # applies migrations to your local database
     - fix, confirm locally
     - confirm fixed in staging
         - fix any stuck surveys in staging
+        - run db migration (won't work if dupe ids exist)
     - confirm fixed in prod
     - fix any stuck surveys in prod
 - check fly + neon infra vs requirements
