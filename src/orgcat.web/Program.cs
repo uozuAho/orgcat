@@ -1,19 +1,7 @@
-using Microsoft.AspNetCore.DataProtection;
-using orgcat.domain;
-using orgcat.postgresdb;
+using orgcat.web;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddRazorPages();
-
-var connString = builder.Configuration.GetConnectionString("OrgCatDb");
-if (string.IsNullOrEmpty(connString))
-{
-    throw new Exception("Connection string is empty");
-}
-builder.Services.AddOrgCatPostgresDb(connString);
-builder.Services.AddDataProtection().StoreKeysInPostgresDb();
-builder.Services.AddTransient<ISurveyService, SurveyService>();
+WebBuilder.ConfigureBuilder(builder);
 
 var app = builder.Build();
 

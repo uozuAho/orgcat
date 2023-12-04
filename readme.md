@@ -78,7 +78,6 @@ dotnet ef database update   # applies migrations to your local database
 
 
 # To do
-- create a test that shows the concurrency bug
 - fix the bug
     - unique constraint on response id
     - transaction for check and create
@@ -110,7 +109,7 @@ dotnet ef database update   # applies migrations to your local database
         - RDS
 
 # Maybe/later
-- turn of EF info logs
+- set log level to warn (appsettings)
 - fuzz & load test via http
 - remove test project(s) from docker image
 - implement viewing survey responses (no download)
