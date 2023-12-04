@@ -12,16 +12,17 @@ namespace orgcat.postgresdb.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Dummies",
+                name: "DataProtectionKeys",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false)
+                    FriendlyName = table.Column<string>(type: "text", nullable: true),
+                    Xml = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Dummies", x => x.Id);
+                    table.PrimaryKey("PK_DataProtectionKeys", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -61,7 +62,9 @@ namespace orgcat.postgresdb.Migrations
                 name: "SurveyResponses",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ResponseId = table.Column<string>(type: "text", nullable: false),
                     SurveyId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -81,7 +84,7 @@ namespace orgcat.postgresdb.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    SurveyResponseId = table.Column<string>(type: "text", nullable: false),
+                    SurveyResponseId = table.Column<int>(type: "integer", nullable: false),
                     QuestionId = table.Column<int>(type: "integer", nullable: false),
                     ResponseText = table.Column<string>(type: "text", nullable: false)
                 },
@@ -127,7 +130,7 @@ namespace orgcat.postgresdb.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Dummies");
+                name: "DataProtectionKeys");
 
             migrationBuilder.DropTable(
                 name: "SurveyQuestionResponses");

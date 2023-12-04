@@ -11,8 +11,8 @@ using orgcat.postgresdb;
 namespace orgcat.postgresdb.Migrations
 {
     [DbContext(typeof(OrgCatDb))]
-    [Migration("20231203093341_StoreAspKeysInDb")]
-    partial class StoreAspKeysInDb
+    [Migration("20231204040415_Initialise")]
+    partial class Initialise
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -97,9 +97,8 @@ namespace orgcat.postgresdb.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("SurveyResponseId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("SurveyResponseId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -112,7 +111,14 @@ namespace orgcat.postgresdb.Migrations
 
             modelBuilder.Entity("orgcat.postgresdb.Entities.SurveyResponse", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ResponseId")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("SurveyId")

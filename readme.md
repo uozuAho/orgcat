@@ -33,7 +33,7 @@ MSYS_NO_PATHCONV=1 docker exec src-db-1 psql -U postgres -d orgcat -f /seeddb.sq
 
 
 # Other stuff:
-# to reproduce a concurrency bug:
+# to reproduce the concurrency bug that makes a new survey id unusable:
 seq 1 2 | xargs -n1 -P3 curl localhost:5056/survey/start/<some_new_id>
 ```
 
@@ -55,7 +55,7 @@ seq 1 2 | xargs -n1 -P3 curl localhost:5056/survey/start/<some_new_id>
 - survey should initially load in < 1s
 - survey pages should transition in < 1s
 - contains a concurrency bug so that concurrent landing on a new survey id
-  causes an error
+  causes an error that makes that survey id unusable
 
 # Infra requirements
 - separate staging and prod environments
@@ -78,8 +78,10 @@ dotnet ef database update   # applies migrations to your local database
 
 
 # To do
-- change bug to make survey unusable after concurrency error
-    - infra requirement is to be able to fix this without data loss
+- create a test that shows the concurrency bug
+- fix the bug
+    - unique constraint on response id
+    - transaction for check and create
 - create a run sheet to reproduce & fix bug
     - users complain they can't do survey
     - check logs, metrics, traces
