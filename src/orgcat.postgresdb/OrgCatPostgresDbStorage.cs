@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Npgsql;
 using orgcat.domain;
 
 namespace orgcat.postgresdb
@@ -6,10 +8,14 @@ namespace orgcat.postgresdb
     internal class OrgCatPostgresDbStorage : IOrgCatStorage
     {
         private readonly OrgCatDb _context;
+        private readonly ILogger<OrgCatPostgresDbStorage> _log;
 
-        public OrgCatPostgresDbStorage(OrgCatDb context)
+        public OrgCatPostgresDbStorage(
+            OrgCatDb context,
+            ILogger<OrgCatPostgresDbStorage> logger)
         {
             _context = context;
+            _log = logger;
         }
 
         public async Task<bool> SurveyExists(string id)
@@ -19,19 +25,25 @@ namespace orgcat.postgresdb
 
         public async Task CreateNewSurveyResponse(string responseId, int surveyId)
         {
-            await using var transaction = await _context.Database.BeginTransactionAsync();
-            if (await _context.SurveyResponses.AnyAsync(r => r.ResponseId == responseId))
-            {
-                return;
-            }
             _context.SurveyResponses.Add(new Entities.SurveyResponse
             {
                 ResponseId = responseId,
                 SurveyId = surveyId
             });
 
-            await _context.SaveChangesAsync();
-            await transaction.CommitAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException e)
+            {
+                if (e.InnerException is PostgresException { SqlState: "23505" })
+                {
+                    _log.LogWarning("Ignoring duplicate survey response creation");
+                    return;
+                }
+                throw;
+            }
         }
 
         public async Task Add(SurveyQuestionResponse questionResponse)
