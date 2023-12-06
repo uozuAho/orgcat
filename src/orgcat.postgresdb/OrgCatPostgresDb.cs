@@ -11,6 +11,13 @@ internal class OrgCatDb : DbContext, IDataProtectionKeyContext
     {
     }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<SurveyResponse>()
+            .HasIndex(x => x.ResponseId)
+            .IsUnique();
+    }
+
     public DbSet<SurveyResponse> SurveyResponses { get; set; } = null!;
     public DbSet<SurveyQuestionResponse> SurveyQuestionResponses { get; set; } = null!;
     public DbSet<SurveyQuestion> SurveyQuestions { get; set; } = null!;

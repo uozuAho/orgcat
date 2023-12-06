@@ -78,10 +78,10 @@ dotnet ef database update   # applies migrations to your local database
 
 
 # To do
-- create a test that shows the concurrency bug
 - fix the bug
-    - unique constraint on response id
-    - transaction for check and create
+    - DONE: unique constraint on response id
+    - DONE: transaction for check and create
+    - test with curl
 - create a run sheet to reproduce & fix bug
     - users complain they can't do survey
     - check logs, metrics, traces
@@ -90,6 +90,7 @@ dotnet ef database update   # applies migrations to your local database
     - fix, confirm locally
     - confirm fixed in staging
         - fix any stuck surveys in staging
+        - run db migration (won't work if dupe ids exist)
     - confirm fixed in prod
     - fix any stuck surveys in prod
 - check fly + neon infra vs requirements
@@ -110,7 +111,7 @@ dotnet ef database update   # applies migrations to your local database
         - RDS
 
 # Maybe/later
-- turn of EF info logs
+- set log level to warn (appsettings)
 - fuzz & load test via http
 - remove test project(s) from docker image
 - implement viewing survey responses (no download)

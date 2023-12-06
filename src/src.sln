@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "orgcat.postgresdb", "orgcat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "orgcat.domain.test", "orgcat.domain.test\orgcat.domain.test.csproj", "{2C9E9C67-7A43-4F2A-B4D3-BC17BF0B8624}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "orgcat.web.test", "orgcat.web.test\orgcat.web.test.csproj", "{29670493-B826-4B0F-8DD2-3C1F8EFA6DF9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{2C9E9C67-7A43-4F2A-B4D3-BC17BF0B8624}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C9E9C67-7A43-4F2A-B4D3-BC17BF0B8624}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C9E9C67-7A43-4F2A-B4D3-BC17BF0B8624}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29670493-B826-4B0F-8DD2-3C1F8EFA6DF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29670493-B826-4B0F-8DD2-3C1F8EFA6DF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29670493-B826-4B0F-8DD2-3C1F8EFA6DF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29670493-B826-4B0F-8DD2-3C1F8EFA6DF9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
