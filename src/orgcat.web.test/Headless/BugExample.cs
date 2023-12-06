@@ -11,7 +11,7 @@ public class BugExample
     }
 
     [Test]
-    public async Task ConcurrentStartMakesResponseUnusable()
+    public async Task ConcurrentStartMadeResponseUnusable()
     {
         var builder = WebApplication.CreateBuilder();
         WebBuilder.ConfigureBuilder(builder);
@@ -23,11 +23,12 @@ public class BugExample
         var surveyState = await surveyService.GetSurveyResponseState(responseId);
         surveyState.ShouldBe(SurveyResponseState.NotStarted);
 
-        // simulate two concurrent requests to start the survey
+        // Simulate two concurrent requests to start the survey.
+        // This used to cause the survey to be unusable.
         await surveyService.StartLatestSurvey(responseId);
         await surveyService.StartLatestSurvey(responseId);
 
-        Should.Throw<InvalidOperationException>(async () =>
-            await surveyService.LoadNextQuestion(responseId));
+        var question = await surveyService.LoadNextQuestion(responseId);
+        question.ShouldNotBeNull();
     }
 }

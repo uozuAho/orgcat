@@ -17,15 +17,21 @@ namespace orgcat.postgresdb
             return await _context.SurveyResponses.AnyAsync(s => s.ResponseId == id);
         }
 
-        public async Task CreateNewSurveyResponse(string id, int surveyId)
+        public async Task CreateNewSurveyResponse(string responseId, int surveyId)
         {
+            await using var transaction = await _context.Database.BeginTransactionAsync();
+            if (await _context.SurveyResponses.AnyAsync(r => r.ResponseId == responseId))
+            {
+                return;
+            }
             _context.SurveyResponses.Add(new Entities.SurveyResponse
             {
-                ResponseId = id,
+                ResponseId = responseId,
                 SurveyId = surveyId
             });
 
             await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
         }
 
         public async Task Add(SurveyQuestionResponse questionResponse)

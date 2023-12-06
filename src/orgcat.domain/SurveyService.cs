@@ -26,12 +26,7 @@ public class SurveyService : ISurveyService
         _storage = storage;
     }
 
-    public async Task<bool> IsSurveyStarted(string id)
-    {
-        return await _storage.SurveyExists(id);
-    }
-
-    public Task StartSurvey(string responseId, int surveyId)
+    private Task StartSurvey(string responseId, int surveyId)
     {
         return _storage.CreateNewSurveyResponse(responseId, surveyId);
     }

@@ -4,7 +4,7 @@
 set -eu
 
 # restart db
-docker stop orgcat_pg_test
+docker stop orgcat_pg_test || true
 docker run --rm --name orgcat_pg_test -e POSTGRES_PASSWORD=footest -e \
     POSTGRES_USER=postgres -e POSTGRES_DB=orgcat_test -p 5433:5432 -d postgres
 

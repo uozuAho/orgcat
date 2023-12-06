@@ -80,7 +80,8 @@ dotnet ef database update   # applies migrations to your local database
 # To do
 - fix the bug
     - DONE: unique constraint on response id
-    - transaction for check and create
+    - DONE: transaction for check and create
+    - test with curl
 - create a run sheet to reproduce & fix bug
     - users complain they can't do survey
     - check logs, metrics, traces
