@@ -58,6 +58,7 @@ seq 1 2 | xargs -n1 -P3 curl localhost:5056/survey/start/<some_new_id>
   causes an error that makes that survey id unusable
 
 # Infra requirements
+- at least know how to do these, don't have to implement them
 - separate staging and prod environments
 - CD: deploy on push main, goes to prod when tests pass
 - logging, metrics
@@ -77,8 +78,15 @@ dotnet ef database update   # applies migrations to your local database
 ```
 
 
+# Testing out hosting services
+Deploy the site + DB, then go through the [bug runsheet](./bug_runsheet.md).
+Pretend you don't know what the bug is. How easy is it to restore service and
+fix the bug?
+
+
 # To do
-- try runsheet on fly
+- set log level to warn (appsettings)
+    - update concbug tag with this
 - check fly + neon infra vs requirements
 - try other deployment options
     - app
@@ -97,12 +105,10 @@ dotnet ef database update   # applies migrations to your local database
         - RDS
 
 # Maybe/later
-- set log level to warn (appsettings)
+- assess observability options
+    - add structured logging
+    - add tracing?
+    - add asp http metrics (still in prom package?)
+    - do any services give you errors by endpoint out of the box? akita?
 - fuzz & load test via http
-- remove test project(s) from docker image
-- implement viewing survey responses (no download)
-- get rid of new/existing distinction in domain types
-- replace survey controller with start page
-- automate arch checks
-    - web shouldn't reference db directly, apart from IoC setup
-    - db entities should be internal
+- assess CICD tools: buildkite, github actions, aws, more?

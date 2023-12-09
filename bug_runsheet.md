@@ -1,14 +1,16 @@
 # Bug run sheet
 
 # Setup
-Deploy tag `concbug`
+- deploy tag `concbug`
+    - if you've already deployed later db migrations, you'll need to drop an
+      recreate the database.
 
 # Go
 - users complain they can't do survey, eg. they click on a link to
   ~/survey/start/abcd, and just get an error page with a request id
 - check logs, metrics, traces
 - reproduce in staging. Hint: try clicking on a link to a new survey multiple
-  times
+  times quickly
 - reproduce locally
 - fix, confirm locally
     - the quick fix: deploy tag `fixed-concbug`
