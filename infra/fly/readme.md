@@ -18,3 +18,19 @@
 # To destory the app and all resources:
 ./destroy.sh
 ```
+
+# Fly assessment vs requirements
+- **todo**: this
+- survey should initially load in < 1s
+- survey pages should transition in < 1s
+- separate staging and prod environments
+- CD: deploy on push main, goes to prod when tests pass
+- logging, metrics
+- fast rollback (skip full build + test, revert to previous working deployment)
+- maybe: structured logs with nice querying
+- maybe: tracing
+
+# Thoughts
+- very slick, deploying is easy and pretty fast, all from the console
+- grafana metrics are nice: cpu, memory, http traffic, latency, responses
+    - **todo**: are more metrics easily added with prometheus?

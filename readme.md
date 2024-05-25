@@ -85,9 +85,9 @@ fix the bug?
 
 
 # To do
+- check fly + neon infra vs requirements
 - set log level to warn (appsettings)
     - update concbug tag with this
-- check fly + neon infra vs requirements
 - try other deployment options
     - app
         - app runner
