@@ -14,6 +14,7 @@ To run locally in a fresh dev environment:
 # Dev:
 ./db_reset.sh                           # wipes & recreates database
 dotnet run --project src/orgcat.web     # runs the web server
+# browse to localhost:5056/survey/start/a , answer questions
 
 # see what's in the db
 docker exec -it orgcat_pg psql -U postgres -d orgcat
