@@ -27,7 +27,7 @@ export class OrgcatStack extends cdk.Stack {
       memoryLimitMiB: 512,
       logging,
     });
-    new ecs.FargateService(this, "Service", {
+    const service = new ecs.FargateService(this, "Service", {
       cluster,
       taskDefinition: taskDef,
       assignPublicIp: true,
